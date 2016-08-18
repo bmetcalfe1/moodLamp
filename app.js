@@ -67,6 +67,13 @@ app.get('/', function(req, res) {
   });
 });
 
+app.get('/microphone', function(req, res) {
+  res.render('microphone', {
+    ct: req._csrfToken,
+    GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID
+  });
+});
+
 // Get token using your credentials
 app.post('/api/token', function(req, res, next) {
   authService.getToken({url: config.url}, function(err, token) {
