@@ -22,12 +22,27 @@ var express = require('express'),
   extend = require('util')._extend,
   watson = require('watson-developer-cloud');
 var expressBrowserify = require('express-browserify');
+var mongoose = require('mongoose');
+
+// CONTROLLERS
+var userController = require('./server/controllers/user');
 
 // load environment properties from a .env file for local development
 require('dotenv').load({silent: true});
 
 // Bootstrap application settings
 require('./config/express')(app);
+
+//mongo DB stuff
+mongoose.connect(process.env.MONGODB);
+mongoose.connection.on('error', function() {
+ console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
+ process.exit(1);
+});
+
+
+
+
 
 // automatically compile and serve the front-end js
 app.get('/js/index.js', expressBrowserify('src/index.js', {
@@ -60,6 +75,13 @@ app.post('/api/token', function(req, res, next) {
       res.send(token);
   });
 });
+
+app.get('/signup', userController.signupGet);
+app.post('/signup', userController.signupPost);
+
+app.get('/login', userController.loginGet);
+app.post('/login', userController.loginPost);
+
 
 // error-handler settings
 require('./config/error-handler')(app);

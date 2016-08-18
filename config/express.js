@@ -17,8 +17,14 @@
 'use strict';
 
 // Module dependencies
-var express = require('express'),
-  bodyParser = require('body-parser');
+var express = require('express');
+var bodyParser = require('body-parser');
+var expressValidator = require('express-validator');
+var passport = require('passport');
+var flash = require('express-flash');
+var session = require('express-session');
+var methodOverride = require('method-override');
+
 
 module.exports = function(app) {
   app.set('view engine', 'ejs');
@@ -29,7 +35,16 @@ module.exports = function(app) {
     require('./security')(app);
 
   // Configure Express
-  app.use(bodyParser.urlencoded({extended: true, limit: '1mb'}));
-  app.use(bodyParser.json({limit: '1mb'}));
+  app.use(bodyParser.urlencoded({extended: true, limit: '50mb'}));
+  app.use(bodyParser.json({limit: '50mb'}));
   app.use(express.static(__dirname + '/../public'));
+  app.use(expressValidator());
+  app.use(flash());
+  app.use(session({ secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true }));
+  app.use(methodOverride('_method'));
+  app.use(passport.initialize());
+  app.use(passport.session());
+
+
+
 };
