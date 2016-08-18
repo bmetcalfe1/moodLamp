@@ -32,6 +32,7 @@ require('dotenv').load({silent: true});
 
 // Bootstrap application settings
 require('./config/express')(app);
+require('./config/passport');
 
 //mongo DB stuff
 mongoose.connect(process.env.MONGODB);
