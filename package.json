@@ -16,6 +16,7 @@
     "express": "~4.13.3",
     "express-browserify": "^1.0.2",
     "express-flash": "0.0.2",
+    "express-handlebars": "^3.0.0",
     "express-rate-limit": "^2.1.0",
     "express-secure-only": "^0.2.1",
     "express-session": "^1.14.0",

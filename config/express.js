@@ -24,10 +24,30 @@ var passport = require('passport');
 var flash = require('express-flash');
 var session = require('express-session');
 var methodOverride = require('method-override');
+var exphbs = require('express-handlebars');
 
 
 module.exports = function(app) {
-  app.set('view engine', 'ejs');
+
+
+  var hbs = exphbs.create({
+    defaultLayout: 'main',
+    helpers: {
+      ifeq: function(a, b, options) {
+        if (a === b) {
+          return options.fn(this);
+        }
+        return options.inverse(this);
+      },
+      toJSON : function(object) {
+        return JSON.stringify(object);
+      }
+    }
+  });
+
+  app.engine('handlebars', hbs.engine);
+  app.set('view engine', 'handlebars');
+
   app.enable('trust proxy');
 
   // Only loaded when SECURE_EXPRESS is `true`
