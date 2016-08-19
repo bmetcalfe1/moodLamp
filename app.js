@@ -18,6 +18,8 @@
 
 var express = require('express');
 var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 var vcapServices = require('vcap_services');
 var extend = require('util')._extend;
 var watson = require('watson-developer-cloud');
@@ -94,17 +96,36 @@ app.post('/signup', userController.signupPost);
 app.get('/login', userController.loginGet);
 app.post('/login', userController.loginPost);
 
+
 app.get('/meeting', meetingController.get);
 app.post('/meeting', meetingController.create);
 app.put('/joinMeeting/:id', meetingController.joinMeeting);
 
+
+app.get('/logout', userController.logout);
+
+app.get('/forgot', userController.forgotGet);
+app.post('/forgot', userController.forgotPost);
+
+app.get('/reset', userController.resetGet);
+app.post('/reset', userController.resetPost);
+
+//socket.io stuff
+
 app.post('/lightItUp', lightController.lightItUp);
 
-//app.get(/about us)
-//app.get(/team)
-
+// SOCKET stuff
+io.on('connection', function(client) {
+    console.log('a client has connected');
+});
 
 // error-handler settings
 require('./config/error-handler')(app);
+// Deployment tracking
+require('cf-deployment-tracker-client').track();
+
+var port = process.env.VCAP_APP_PORT || 3000;
+server.listen(port);
+console.log('listening at:', port);
 
 module.exports = app;
