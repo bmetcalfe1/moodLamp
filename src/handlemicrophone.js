@@ -76,9 +76,14 @@ exports.handleMicrophone = function(token, model, mic, callback) {
   function onMessage(msg) {
     if (msg.results) {
       // TRANSCRIPT HERE
+
       // Convert to closure approach
-      console.log('msg', msg);
+      //console.log('msg   ', msg);
       baseString = display.showResult(msg, baseString, model);
+      //console.log('baseString  ', baseString)
+
+      //io.sockets.emit ('transcript', baseString);
+
       baseJSON = JSON.stringify(msg, null, 2);
       display.showJSON(baseJSON);
     }

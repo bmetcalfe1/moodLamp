@@ -24,6 +24,9 @@ var watson = require('watson-developer-cloud');
 var expressBrowserify = require('express-browserify');
 var mongoose = require('mongoose');
 
+
+
+
 // CONTROLLERS
 var userController = require('./server/controllers/user');
 var lightController = require('./server/controllers/mockaip.js');
@@ -43,9 +46,6 @@ mongoose.connection.on('error', function() {
  console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
  process.exit(1);
 });
-
-
-
 
 
 // automatically compile and serve the front-end js
@@ -93,6 +93,7 @@ app.post('/signup', userController.signupPost);
 app.get('/login', userController.loginGet);
 app.post('/login', userController.loginPost);
 
+//socket.io stuff
 app.post('/lightItUp', lightController.lightItUp);
 
 //app.get(/about us)

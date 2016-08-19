@@ -46,29 +46,6 @@
       "browserify-shim"
     ]
   },
-  "contributors": [
-    {
-      "name": "German Attanasio Ruiz",
-      "email": "germanatt@us.ibm.com"
-    },
-    {
-      "name": "Daniel Bolano",
-      "email": "dbolano@us.ibm.com"
-    },
-    {
-      "name": "Britany L. Ponvelle",
-      "email": "blponvelle@us.ibm.com"
-    },
-    {
-      "name": "Eric S. Bullington",
-      "email": "esbullin@us.ibm.com"
-    },
-    {
-      "name": "Nathan Friedly",
-      "email": "nfriedly@us.ibm.com",
-      "website": "http://nfriedly.com/"
-    }
-  ],
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/watson-developer-cloud/speech-to-text-nodejs/issues"
