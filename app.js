@@ -95,6 +95,12 @@ app.post('/login', userController.loginPost);
 
 app.get('/logout', userController.logout);
 
+app.get('/forgot', userController.forgotGet);
+app.post('/forgot', userController.forgotPost);
+
+app.get('/reset', userController.resetGet);
+app.post('/reset', userController.resetPost);
+
 //socket.io stuff
 app.post('/lightItUp', lightController.lightItUp);
 

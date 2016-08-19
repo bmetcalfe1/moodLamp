@@ -3,6 +3,7 @@ var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var passport = require('passport');
 var User = require('../models/User');
+//var sockets = require('sockets');
 
 /**
  * Login required middleware
@@ -20,7 +21,7 @@ exports.ensureAuthenticated = function(req, res, next) {
  */
 exports.loginGet = function(req, res) {
   if (req.user) {
-    sockets.emit("userloggedin", req.user);
+    //sockets.emit("userloggedin", req.user);
     return res.redirect('/');
   }
   res.render('account/login', {
@@ -104,7 +105,7 @@ exports.signupPost = function(req, res, next) {
     });
     user.save(function(err) {
       req.logIn(user, function(err) {
-        res.redirect('/testmeeting');
+        res.redirect('/login');
       });
     });
   });
@@ -272,7 +273,7 @@ exports.forgotPost = function(req, res, next) {
       };
       transporter.sendMail(mailOptions, function(err) {
         req.flash('info', { msg: 'An email has been sent to ' + user.email + ' with further instructions.' });
-        res.redirect('/forgot');
+        res.redirect('/reset');
       });
     }
   ]);
