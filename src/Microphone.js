@@ -310,7 +310,7 @@ Microphone.prototype.saveData = function(samples) {
     this.samplesAll[this.samplesAllOffset + i] = samples[i];
   }
   this.samplesAllOffset += samples.length;
-  console.log('samples: ' + this.samplesAllOffset);
+  //console.log('samples: ' + this.samplesAllOffset);
 };
 
 Microphone.prototype.playWav = function() {
