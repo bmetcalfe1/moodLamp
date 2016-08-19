@@ -38,6 +38,8 @@ require('dotenv').load({silent: true});
 require('./config/express')(app);
 require('./config/passport');
 
+
+
 //mongo DB stuff
 mongoose.connect(process.env.MONGODB);
 mongoose.connection.on('error', function() {
@@ -62,7 +64,7 @@ var config = extend({
 var authService = watson.authorization(config);
 
 app.get('/', function(req, res) {
-  res.render('index', {
+  res.render('microphone', {
     ct: req._csrfToken,
     GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID
   });
