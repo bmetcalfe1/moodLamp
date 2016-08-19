@@ -93,6 +93,8 @@ app.post('/signup', userController.signupPost);
 app.get('/login', userController.loginGet);
 app.post('/login', userController.loginPost);
 
+app.get('/logout', userController.logout);
+
 //socket.io stuff
 app.post('/lightItUp', lightController.lightItUp);
 
