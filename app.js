@@ -16,16 +16,17 @@
 
 'use strict';
 
-var express = require('express'),
-  app = express(),
-  vcapServices = require('vcap_services'),
-  extend = require('util')._extend,
-  watson = require('watson-developer-cloud');
+var express = require('express');
+var app = express();
+var vcapServices = require('vcap_services');
+var extend = require('util')._extend;
+var watson = require('watson-developer-cloud');
 var expressBrowserify = require('express-browserify');
 var mongoose = require('mongoose');
 
 // CONTROLLERS
 var userController = require('./server/controllers/user');
+var lightController = require('./server/controllers/mockaip.js');
 
 // load environment properties from a .env file for local development
 require('dotenv').load({silent: true});
@@ -89,6 +90,11 @@ app.post('/signup', userController.signupPost);
 
 app.get('/login', userController.loginGet);
 app.post('/login', userController.loginPost);
+
+app.post('/lightItUp', lightController.lightItUp);
+
+//app.get(/about us)
+//app.get(/team)
 
 
 // error-handler settings
