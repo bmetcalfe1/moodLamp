@@ -29,7 +29,8 @@ var mongoose = require('mongoose');
 
 // CONTROLLERS
 var userController = require('./server/controllers/user');
-var lightController = require('./server/controllers/mockaip.js');
+var lightController = require('./server/controllers/mockaip');
+var meetingController = require('./server/controllers/meeting');
 
 // load environment properties from a .env file for local development
 require('dotenv').load({silent: true});
@@ -93,7 +94,10 @@ app.post('/signup', userController.signupPost);
 app.get('/login', userController.loginGet);
 app.post('/login', userController.loginPost);
 
-//socket.io stuff
+app.get('/meeting', meetingController.get);
+app.post('/meeting', meetingController.create);
+app.put('/joinMeeting/:id', meetingController.joinMeeting);
+
 app.post('/lightItUp', lightController.lightItUp);
 
 //app.get(/about us)

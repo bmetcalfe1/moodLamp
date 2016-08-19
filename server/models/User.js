@@ -9,6 +9,7 @@ var schemaOptions = {
   }
 };
 
+
 var userSchema = new mongoose.Schema({
   name: String,
   email: { type: String, unique: true},
@@ -23,7 +24,9 @@ var userSchema = new mongoose.Schema({
   twitter: String,
   google: String,
   github: String,
-  vk: String
+  vk: String,
+  meetings: { type: mongoose.Schema.Types.ObjectId, ref: 'Meeting' }
+
 }, schemaOptions);
 
 userSchema.pre('save', function(next) {
