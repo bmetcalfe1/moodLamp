@@ -873,6 +873,13 @@ exports.showResult = function(msg, baseString, model) {
           text = text.charAt(0).toUpperCase() + text.substring(1);
       }
       $('#resultsText').val(baseString + text);
+
+      console.log('basestring', baseString + text);
+      $.post('/lightItUp', {
+        data: baseString + text
+      }, function(response) {
+        console.log('response', response);
+      });
     }
   }
   updateTextScroll();

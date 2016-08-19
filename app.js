@@ -16,11 +16,11 @@
 
 'use strict';
 
-var express = require('express'),
-  app = express(),
-  vcapServices = require('vcap_services'),
-  extend = require('util')._extend,
-  watson = require('watson-developer-cloud');
+var express = require('express');
+var app = express();
+var vcapServices = require('vcap_services');
+var extend = require('util')._extend;
+var watson = require('watson-developer-cloud');
 var expressBrowserify = require('express-browserify');
 var mongoose = require('mongoose');
 
@@ -30,6 +30,7 @@ var io = require('socket.io')(http);
 
 // CONTROLLERS
 var userController = require('./server/controllers/user');
+var lightController = require('./server/controllers/mockaip.js');
 
 // load environment properties from a .env file for local development
 require('dotenv').load({silent: true});
@@ -68,6 +69,13 @@ app.get('/', function(req, res) {
   });
 });
 
+app.get('/microphone', function(req, res) {
+  res.render('microphone', {
+    ct: req._csrfToken,
+    GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID
+  });
+});
+
 // Get token using your credentials
 app.post('/api/token', function(req, res, next) {
   authService.getToken({url: config.url}, function(err, token) {
@@ -85,6 +93,10 @@ app.get('/login', userController.loginGet);
 app.post('/login', userController.loginPost);
 
 //socket.io stuff
+app.post('/lightItUp', lightController.lightItUp);
+
+//app.get(/about us)
+//app.get(/team)
 
 
 io.on('connection', function(socket){
