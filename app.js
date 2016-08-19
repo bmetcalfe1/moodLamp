@@ -24,6 +24,10 @@ var express = require('express'),
 var expressBrowserify = require('express-browserify');
 var mongoose = require('mongoose');
 
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+
 // CONTROLLERS
 var userController = require('./server/controllers/user');
 
@@ -40,9 +44,6 @@ mongoose.connection.on('error', function() {
  console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
  process.exit(1);
 });
-
-
-
 
 
 // automatically compile and serve the front-end js
@@ -83,7 +84,20 @@ app.post('/signup', userController.signupPost);
 app.get('/login', userController.loginGet);
 app.post('/login', userController.loginPost);
 
+//socket.io stuff
 
+
+io.on('connection', function(socket){
+  console.log("user connected!");
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+});
+/*
+io.on ('transcript', function (msg) {
+    console.log("receiving transcript:", msg)
+})
+*/
 // error-handler settings
 require('./config/error-handler')(app);
 

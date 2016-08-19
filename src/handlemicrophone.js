@@ -18,6 +18,9 @@
 
 var initSocket = require('./socket').initSocket;
 var display = require('./views/displaymetadata');
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+var $ = require('jquery');
 
 exports.handleMicrophone = function(token, model, mic, callback) {
 
@@ -76,9 +79,14 @@ exports.handleMicrophone = function(token, model, mic, callback) {
   function onMessage(msg) {
     if (msg.results) {
       // TRANSCRIPT HERE
+
       // Convert to closure approach
-      console.log('msg', msg);
+      //console.log('msg   ', msg);
       baseString = display.showResult(msg, baseString, model);
+      //console.log('baseString  ', baseString)
+
+      //io.sockets.emit ('transcript', baseString);
+
       baseJSON = JSON.stringify(msg, null, 2);
       display.showJSON(baseJSON);
     }

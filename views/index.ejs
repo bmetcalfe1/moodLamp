@@ -8,8 +8,14 @@
     <title>Speech to Text</title>
     <link href="css/watson-bootstrap-style.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <link rel="shortcut icon" href="images/favicon.ico" />
+
   </head>
+
+  <script src="socket.js"></script>
+  <script>
+    var socket = io();
+  </script>
+
   <body>
     <!-- top nav section -->
     <div class="navbar-wrapper">
@@ -103,9 +109,9 @@
                     <a class="pull-right" href="#" id="errorWrongKeywordsFiletypeClose">&times;</a>
                   </div>
                 </span>
-              </div>	
+              </div>
             -->
-          </div> 
+          </div>
 
         </div><!-- row -->
 
@@ -196,7 +202,7 @@
               <div id="keywords">
                 <ul style="margin-top:10px; margin-left:-40px;"></ul>
               </div>
-            </div>  
+            </div>
           </div><!-- /.well -->
         </div><!-- /.tabpanel -->
 
