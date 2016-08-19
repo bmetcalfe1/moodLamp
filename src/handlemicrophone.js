@@ -18,9 +18,6 @@
 
 var initSocket = require('./socket').initSocket;
 var display = require('./views/displaymetadata');
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var $ = require('jquery');
 
 exports.handleMicrophone = function(token, model, mic, callback) {
 

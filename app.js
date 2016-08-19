@@ -24,8 +24,7 @@ var watson = require('watson-developer-cloud');
 var expressBrowserify = require('express-browserify');
 var mongoose = require('mongoose');
 
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+
 
 
 // CONTROLLERS
@@ -99,17 +98,6 @@ app.post('/lightItUp', lightController.lightItUp);
 //app.get(/team)
 
 
-io.on('connection', function(socket){
-  console.log("user connected!");
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-  });
-});
-/*
-io.on ('transcript', function (msg) {
-    console.log("receiving transcript:", msg)
-})
-*/
 // error-handler settings
 require('./config/error-handler')(app);
 
