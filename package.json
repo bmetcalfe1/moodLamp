@@ -51,7 +51,7 @@
     "url": "https://github.com/watson-developer-cloud/speech-to-text-nodejs/issues"
   },
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "nodemon app.js",
     "test": "npm run lint && npm run test-offline",
     "lint": "eslint .",
     "autofix": "eslint . --fix",
