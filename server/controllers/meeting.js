@@ -1,5 +1,5 @@
 var Meeting = require('../models/Meeting');
-
+var Handlebars = require('Handlebars')
 exports.create = function(req, res, next) {
   console.log('req body', req.body);
   var meeting = new Meeting({
@@ -13,14 +13,24 @@ exports.create = function(req, res, next) {
 
 exports.get = function(req,res, next) {
   Meeting.find({}, function(err, meetings) {
-    res.render("account/meeting", {meetings: meetings});
+    res.render("account/meeting", {meetings: meetings, helpers: {
+            printMeetings: function(meeting) {
+              var html = "<ul>";
+              meeting.forEach(function(entry) {
+                html += "<li>" + entry.name + "</li>";
+              });
+              html += "</ul>";
+              return html;
+            }
+        }});
   })
   .populate('attendees')
   .exec(function (err, meeting) {
     if (err) return handleError(err);
-    console.log('The creator is %s', meeting.attendees);
+    console.log('The creator is %s', meeting[0].attendees[0]);
     // prints "The creator is Aaron"
   });
+
 }
 
 
