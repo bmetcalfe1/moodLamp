@@ -1,6 +1,5 @@
 var Meeting = require('../models/Meeting');
 
-
 exports.create = function(req, res, next) {
   console.log('req body', req.body);
   var meeting = new Meeting({
@@ -8,18 +7,13 @@ exports.create = function(req, res, next) {
   });
   meeting.save(function(err) {
     if(err) console.log('error creating a meeting', err);
-
-    res.render("account/meeting", {meeting: meeting });
+    res.send(meeting);
   });
 }
 
 exports.get = function(req,res, next) {
   Meeting.find({}, function(err, meetings) {
-
-    Handlebars.registerHelper('meeting',function retrieveMeetings(dialogue){
-      return new Handlebars.SafeString(dialogue.message + " " + dialogue.created_at);
-    })
-    //res.send(meetings);
+    res.render("account/meeting", {meetings: meetings});
   })
   .populate('attendees')
   .exec(function (err, meeting) {
@@ -28,6 +22,7 @@ exports.get = function(req,res, next) {
     // prints "The creator is Aaron"
   });
 }
+
 
 exports.joinMeeting = function(req, res, next) {
   var updatedObj = req.body;
@@ -38,7 +33,6 @@ exports.joinMeeting = function(req, res, next) {
     res.send(meeting);
   });
 }
-
 /**
  * POST /signup
  */
