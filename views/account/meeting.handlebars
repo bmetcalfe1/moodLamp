@@ -1,14 +1,14 @@
 <div class="container">
-  <h3>Find or create your meeting.</h3>
+  <h2>Find or create your meeting.</h2>
 
-  <h3>Create your meeting.</h3>
+  <h4>Create your meeting.</h4>
     <form method="POST">
      <label for="meetingName">Meeting Name</label>
      <input type="meetingName" name="meetingName" id="meetingName" placeholder="Call with CEO" autofocus>
      <button type="submit">Create</button>
    </form>
 
-  <h3>Find your meeting.</h3>
+  <h4>Find your meeting.</h4>
     {{#if meeting.id}}
       <div class="meetingList">
         {{#each meeting.id}}
