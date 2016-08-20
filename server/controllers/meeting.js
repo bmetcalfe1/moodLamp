@@ -8,7 +8,7 @@ exports.create = function(req, res, next) {
   });
   meeting.save(function(err) {
     if(err) console.log('error creating a meeting', err);
-    res.send(meeting);
+    res.render("account/meeting", {meetings: meeting });
   });
 }
 
@@ -24,7 +24,6 @@ exports.get = function(req,res, next) {
   });
 }
 
-
 exports.joinMeeting = function(req, res, next) {
   var updatedObj = req.body;
   console.log('req.body', req.body);
@@ -34,6 +33,7 @@ exports.joinMeeting = function(req, res, next) {
     res.send(meeting);
   });
 }
+
 /**
  * POST /signup
  */

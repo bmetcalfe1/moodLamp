@@ -1,0 +1,31 @@
+<div class="container">
+<h3>MEETING</h3>
+
+  <form method="POST">
+    <ul>
+{{function retrieveMeetings(meetings){
+      <li>
+          <h3 class="meetings">
+                  <p>{{meetings.comment>}}</p>
+                  <article>
+                    <footer>
+                      <p>Posted by: <%=comments.user%>
+                      </p>
+                    </footer>
+                  </article>
+          </h3>
+      </li>
+}}}
+
+    </ul>
+
+
+   <label for="email">Email</label>
+   <input type="email" name="email" id="email" placeholder="Email" autofocus>
+   <label for="password">Password</label>
+   <input type="password" name="password" id="password" placeholder="Password">
+   <p><a href="/forgot">Forgot your password?</a></p>
+   <button type="submit">Log in</button>
+ </form>
+
+</div>
