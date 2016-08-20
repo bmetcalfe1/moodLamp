@@ -8,13 +8,18 @@ exports.create = function(req, res, next) {
   });
   meeting.save(function(err) {
     if(err) console.log('error creating a meeting', err);
-    res.render("account/meeting", {meetings: meeting });
+
+    res.render("account/meeting", {meeting: meeting });
   });
 }
 
 exports.get = function(req,res, next) {
   Meeting.find({}, function(err, meetings) {
-    res.send(meetings);
+
+    Handlebars.registerHelper('meeting',function retrieveMeetings(dialogue){
+      return new Handlebars.SafeString(dialogue.message + " " + dialogue.created_at);
+    })
+    //res.send(meetings);
   })
   .populate('attendees')
   .exec(function (err, meeting) {

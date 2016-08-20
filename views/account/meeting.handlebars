@@ -3,20 +3,9 @@
 
   <form method="POST">
     <ul>
-{{function retrieveMeetings(meetings){
-      <li>
-          <h3 class="meetings">
-                  <p>{{meetings.comment>}}</p>
-                  <article>
-                    <footer>
-                      <p>Posted by: <%=comments.user%>
-                      </p>
-                    </footer>
-                  </article>
-          </h3>
-      </li>
-}}}
-
+      {{#each items}}
+        <li>{{meetings meeting}}</li>
+        {{/each}}
     </ul>
 
 
