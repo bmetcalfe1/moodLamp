@@ -2,7 +2,7 @@ var Meeting = require('../models/Meeting');
 var Handlebars = require('Handlebars')
 
 exports.create = function(req, res, next) {
-  console.log('req body', req.body);
+
   var meeting = new Meeting({
     name: req.body.name
   });
@@ -13,22 +13,27 @@ exports.create = function(req, res, next) {
 }
 
 exports.get = function(req,res, next) {
+  console.log("the user might be here?", req.user.name)
+  var user = req.user.name;
   Meeting.find({}, function(err, meetings) {
-    res.render("account/meeting", {meetings: meetings, helpers: {
+    console.log("is the user still here", user)
+    res.render("account/meeting", {user: user, meetings: meetings, helpers: {
             printMeetings: function(meeting) {
               var html = '<ul class="list-group">';
               meeting.forEach(function(entry) {
                 html += `<li><a href="/joinMeeting/` + entry.id + `">` +  entry.name + " | " + entry.created_at + "</a></li>";
               });
               html += "</ul>";
+              html += "user in html!!  " + user;
               return html;
             }
         }});
-  })
+  }
+)
   .populate('attendees')
   .exec(function (err, meeting) {
     if (err) return handleError(err);
-    console.log('The creator is %s', meeting[0].attendees[0]);
+
     // prints "The creator is Aaron"
   });
 
@@ -36,15 +41,16 @@ exports.get = function(req,res, next) {
 
 
 exports.joinMeeting = function(req, res, next) {
-  console.log("im herre motherfucker")
-  var updatedObj = req.body;
-  console.log('req.body', req.body);
-  Meeting.findOneAndUpdate(req.params.id,
-    {$push: { "attendees": req.body.attendee_id}},
+  console.log("this is the whole request", req)
+  var updatedObj = req.params.id;
+  var updateAttendee = req.body.attendee_id;
+  console.log('req.params.id', updatedObj);
+  console.log('req.user', updateAttendee);
+
+  Meeting.findOneAndUpdate(updatedObj,
+    {$push: { "attendees": updateAttendee}},
     {safe: true, new: true}, function(err, meeting) {
-      if (err)
-      res.send("<p>hello workd</p>");
-    res.send("hello workd");
+    res.send(meeting);
   });
 }
 /**
