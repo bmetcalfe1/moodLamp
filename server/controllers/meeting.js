@@ -10,7 +10,7 @@ exports.create = function(req, res, next) {
     if(err) console.log('error creating a meeting', err);
     res.redirect('/meeting');
   });
-}
+};
 
 exports.get = function(req,res, next) {
   console.log("the user might be here?", req.user.name)
@@ -21,11 +21,11 @@ exports.get = function(req,res, next) {
             printMeetings: function(meeting) {
               var html = '<ul class="list-group">';
               meeting.forEach(function(entry) {
-                html += `<li><a href="/joinMeeting/` + entry.id + `">` +  entry.name + " | " + entry.created_at + "</a></li>";
+              //  html += `<li><a href="/joinMeeting/` + entry.id + `">` +  entry.name + " | " + entry.created_at + "</a></li>";
                 //html += `<li><button type="submit" formmethod="post" formaction="/joinMeeting/` + entry.id + `>` + entry.name + " | " + entry.created_at + `</button></li>`
-  //               html += `<li><form method="post" action="/joinMeeting/` +  entry.id +  `" class="inline">
-  // <input type="hidden" name="extra_submit_param" value="extra_submit_value">
-  // <button type="submit" name="submit_param" value="submit_value" class="link-button">`+  entry.name + " | " + entry.created_at + `</button></form></li>`
+                html += `<li><form method="post" action="/joinMeeting/` +  entry.id +  `" class="inline">
+  <input type="hidden" name="extra_submit_param" value="extra_submit_value">
+  <button type="submit" name="submit_param" value="submit_value" class="link-button">`+  entry.name + " | " + entry.created_at + `</button></form></li>`
               });
               html += "</ul>";
               return html;
@@ -39,23 +39,22 @@ exports.get = function(req,res, next) {
     // prints "The creator is Aaron"
   });
 
-}
+};
 
 
 exports.joinMeeting = function(req, res, next) {
 
   var updatedObj = req.params.id;
   var updateAttendee = req.body.attendee_id;
-  console.log('req.params.id', updatedObj);
-  console.log('req.user', updateAttendee);
 
   Meeting.findOneAndUpdate(updatedObj,
     {$push: { "attendees": updateAttendee}},
     {new: true},
     function(err, doc) {
+    console.log(doc)
     res.send(doc);
   });
-}
+};
 /**
  * POST /signup
  */
