@@ -1,5 +1,7 @@
 var Meeting = require('../models/Meeting');
-var Handlebars = require('Handlebars')
+//var meetingbox = require('/moodLamp/views/meetingbox.handlebars');
+var Handlebars = require('Handlebars');
+
 
 exports.create = function(req, res, next) {
   console.log(req.body.meetingName)
@@ -10,6 +12,12 @@ exports.create = function(req, res, next) {
     if(err) console.log('error creating a meeting', err);
     res.redirect('/meeting');
   });
+}
+
+
+exports.join = function(req, res) {
+  console.log(req.body);
+  res.render('meetingbox');
 }
 
 exports.get = function(req,res, next) {
