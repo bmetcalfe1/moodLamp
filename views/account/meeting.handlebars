@@ -24,13 +24,19 @@ function jointMeeting(user,entry){
     url: "http://localhost:3000/joinMeeting/"+ entry,
     data: {attendee_id: user},
     success: function(result) {
-      console.log(result)
-
+      console.log("this is after joining a meeting",result)
     }
   })
 }
 
 function retrieveMeeting(entry){
-
+  $.ajax({
+    type: "GET",
+    url: "http://localhost:3000/onemeeting",
+    data: {meeting: entry},
+    success: function(result) {
+      console.log("this is after retrieving a meeting", result)
+    }
+  })
 }
 </script>
