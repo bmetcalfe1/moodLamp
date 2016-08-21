@@ -2,13 +2,13 @@ var Meeting = require('../models/Meeting');
 var Handlebars = require('Handlebars')
 
 exports.create = function(req, res, next) {
-
+  console.log(req.body.meetingName)
   var meeting = new Meeting({
-    name: req.body.name
+    name: req.body.meetingName
   });
   meeting.save(function(err) {
     if(err) console.log('error creating a meeting', err);
-    res.send(meeting);
+    res.redirect('/meeting');
   });
 }
 
