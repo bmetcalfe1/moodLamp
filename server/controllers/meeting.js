@@ -34,6 +34,6 @@ exports.joinMeeting = function(req, res, next) {
     {$push: { "attendees": req.body.attendee_id}},
     {safe: true, new: true}, function(err, meeting) {
     // res.send(meeting);
-    res.render('account/meeting');
+    res.render('account/conversation:id'); // i did this. might not works
   });
 }

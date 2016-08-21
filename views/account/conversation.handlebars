@@ -4,8 +4,14 @@
 
  <!-- needs an if statement and creates if users if theyre in the page/session -->
   <div class = "userProfile">
-    <div class = "userAvatar">
-      {{user.avatar}} <!-- needs to dynamically change based on user -->
+    {{#if user.picture}}
+      <img class="avatar" src="{{user.picture}}">
+    {{else}}
+      <img class="avatar" src="{{user.gravatar}}">
+    {{/if}}
+      <!-- needs to dynamically change based on user -->
+    {{user.name}}
+    <img class="avatar" src="{{user.picture}}">
       <!-- background needs a default and to dynamically change based on sentiment -->
     </div>
     <div class="userText" style="height:120px; width:120px; border:1px solid #ccc; font:16px/26px Serif; overflow:scroll;">
@@ -16,6 +22,4 @@
         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
     </div>
-  </div>
-   
 </div>
