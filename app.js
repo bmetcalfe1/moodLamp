@@ -97,7 +97,7 @@ app.get('/login', userController.loginGet);
 app.post('/login', userController.loginPost);
 
 
-app.get('/meeting', meetingController.get);
+app.get('/meeting', meetingController.getAllMeetings);
 
 app.post('/meeting', meetingController.create);
 
