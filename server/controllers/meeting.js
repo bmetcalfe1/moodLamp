@@ -22,18 +22,20 @@ exports.get = function(req,res, next) {
               var html = '<ul class="list-group">';
               meeting.forEach(function(entry) {
                 html += `<li><a href="/joinMeeting/` + entry.id + `">` +  entry.name + " | " + entry.created_at + "</a></li>";
+                //html += `<li><button type="submit" formmethod="post" formaction="/joinMeeting/` + entry.id + `>` + entry.name + " | " + entry.created_at + `</button></li>`
+  //               html += `<li><form method="post" action="/joinMeeting/` +  entry.id +  `" class="inline">
+  // <input type="hidden" name="extra_submit_param" value="extra_submit_value">
+  // <button type="submit" name="submit_param" value="submit_value" class="link-button">`+  entry.name + " | " + entry.created_at + `</button></form></li>`
               });
               html += "</ul>";
-              html += "user in html!!  " + user;
               return html;
             }
-        }});
+      }});
   }
 )
   .populate('attendees')
   .exec(function (err, meeting) {
     if (err) return handleError(err);
-
     // prints "The creator is Aaron"
   });
 
@@ -41,7 +43,7 @@ exports.get = function(req,res, next) {
 
 
 exports.joinMeeting = function(req, res, next) {
-  console.log("this is the whole request", req)
+
   var updatedObj = req.params.id;
   var updateAttendee = req.body.attendee_id;
   console.log('req.params.id', updatedObj);
@@ -49,8 +51,9 @@ exports.joinMeeting = function(req, res, next) {
 
   Meeting.findOneAndUpdate(updatedObj,
     {$push: { "attendees": updateAttendee}},
-    {safe: true, new: true}, function(err, meeting) {
-    res.send(meeting);
+    {new: true},
+    function(err, doc) {
+    res.send(doc);
   });
 }
 /**
