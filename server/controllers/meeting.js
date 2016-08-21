@@ -13,19 +13,25 @@ exports.create = function(req, res, next) {
 };
 
 exports.get = function(req,res, next) {
-  console.log("the user might be here?", req.user.name)
-  var user = req.user.name;
+  console.log("the user might be here?", req.user.id)
+  var user = req.user.id;
+  console.log("the whole meeting model here!", Meeting)
   Meeting.find({}, function(err, meetings) {
     console.log("is the user still here", user)
     res.render("account/meeting", {user: user, meetings: meetings, helpers: {
             printMeetings: function(meeting) {
               var html = '<ul class="list-group">';
+              meeting.sort(function(a,b){return b.created_at-a.created_at })
               meeting.forEach(function(entry) {
-              //  html += `<li><a href="/joinMeeting/` + entry.id + `">` +  entry.name + " | " + entry.created_at + "</a></li>";
+              //html += `<li><a href="/joinMeeting/` + entry.id + `">` +  entry.name + " | " + entry.created_at + "</a></li>";
                 //html += `<li><button type="submit" formmethod="post" formaction="/joinMeeting/` + entry.id + `>` + entry.name + " | " + entry.created_at + `</button></li>`
-                html += `<li><form method="post" action="/joinMeeting/` +  entry.id +  `" class="inline">
-  <input type="hidden" name="extra_submit_param" value="extra_submit_value">
-  <button type="submit" name="submit_param" value="submit_value" class="link-button">`+  entry.name + " | " + entry.created_at + `</button></form></li>`
+                // html += `<li><form method="post" action="http://localhost:3000/joinMeeting/` +  entry.id +  `" class="inline">
+                //         <input type="hidden" name="attendee_id" value=`+user+`>
+                //         <button type="submit" name="submit_param" value="submit_value" class="link-button">`+  entry.id +  entry.name + " | " + entry.created_at + `</button></form></li>`
+                html += `<li>
+                            <input id="joinMeet" type="button" onclick="jointMeeting('`+ user + "','"+ entry.id +`')" value="Join">
+                            <input id="retrieveMeet" type="button" onclick="retrieveMeeting(`+ entry.id +`)" value="Transcript">`+ "  "+ entry.name + " | " + entry.created_at + `</button>
+                        </li>`
               });
               html += "</ul>";
               return html;

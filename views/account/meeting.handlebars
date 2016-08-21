@@ -17,4 +17,20 @@
 function createMeeting() {
     document.getElementById("meetingForm").submit();
 }
+
+function jointMeeting(user,entry){
+  $.ajax({
+    type: "PUT",
+    url: "http://localhost:3000/joinMeeting/"+ entry,
+    data: {attendee_id: user},
+    success: function(result) {
+      console.log(result)
+      //if(result === "no_errors") location.href = "http://www.example.com/ThankYou.html"
+    }
+  })
+}
+
+function retrieveMeeting(entry){
+
+}
 </script>

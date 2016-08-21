@@ -101,7 +101,7 @@ app.get('/meeting', meetingController.get);
 
 app.post('/meeting', meetingController.create);
 
-app.post('/joinMeeting/:id', meetingController.joinMeeting);
+app.put('/joinMeeting/:id', meetingController.joinMeeting);
 
 app.get('/logout', userController.logout);
 
