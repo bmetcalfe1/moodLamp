@@ -1,16 +1,18 @@
 <div class="container">
-<h3>MEETING</h3>
-<p>Hellllloooooo</P>
-  <form method="POST">
+ <h2>Find or create your meeting.</h2>
 
-    {{{printMeetings meetings}}}
+ <h4>Create your meeting.</h4>
+   <form action="/meeting" method="POST">
+    <label for="meetingName">Meeting Name</label>
+    <input type="meetingName" name="meetingName" id="meetingName" placeholder="Call with CEO" autofocus>
+    <button type="submit" onClick="placeOrder()">Create</button>
+  </form>
 
-   <label for="email">Email</label>
-   <input type="email" name="email" id="email" placeholder="Email" autofocus>
-   <label for="password">Password</label>
-   <input type="password" name="password" id="password" placeholder="Password">
-   <p><a href="/forgot">Forgot your password?</a></p>
-   <button type="submit">Log in</button>
- </form>
-
+ <h4>Find your meeting.</h4>
+    {{{printMeetings meetings}}}
+  
 </div>
+</div>
+<script>
+
+</script>

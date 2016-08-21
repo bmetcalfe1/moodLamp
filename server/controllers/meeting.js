@@ -1,5 +1,6 @@
 var Meeting = require('../models/Meeting');
 var Handlebars = require('Handlebars')
+
 exports.create = function(req, res, next) {
   console.log('req body', req.body);
   var meeting = new Meeting({
@@ -15,9 +16,9 @@ exports.get = function(req,res, next) {
   Meeting.find({}, function(err, meetings) {
     res.render("account/meeting", {meetings: meetings, helpers: {
             printMeetings: function(meeting) {
-              var html = "<ul>";
+              var html = '<ul class="list-group">';
               meeting.forEach(function(entry) {
-                html += "<li>" + entry.name + "</li>";
+                html += `<li><a href="/joinMeeting/` + entry.id + `">` +  entry.name + " | " + entry.created_at + "</a></li>";
               });
               html += "</ul>";
               return html;
@@ -35,12 +36,15 @@ exports.get = function(req,res, next) {
 
 
 exports.joinMeeting = function(req, res, next) {
+  console.log("im herre motherfucker")
   var updatedObj = req.body;
   console.log('req.body', req.body);
   Meeting.findOneAndUpdate(req.params.id,
     {$push: { "attendees": req.body.attendee_id}},
     {safe: true, new: true}, function(err, meeting) {
-    res.send(meeting);
+      if (err)
+      res.send("<p>hello workd</p>");
+    res.send("hello workd");
   });
 }
 /**
