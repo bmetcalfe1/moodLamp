@@ -90,6 +90,17 @@ app.post('/api/token', function(req, res, next) {
   });
 });
 
+app.get('/api/userdata', function(req, res) {
+    if (req.user === undefined) {
+        // The user is not logged in
+        res.json({});
+    } else {
+        res.json({
+            username: req.user
+        });
+    }
+});
+
 app.get('/signup', userController.signupGet);
 app.post('/signup', userController.signupPost);
 
@@ -121,6 +132,14 @@ app.post('/lightItUp', lightController.lightItUp);
 io.on('connection', function(client) {
     console.log('a client has connected');
 });
+
+
+io.on('connection', function(socket){
+  socket.on('chat message', function(obj){
+    io.emit('chat message', obj);
+  });
+});
+
 
 // error-handler settings
 require('./config/error-handler')(app);
