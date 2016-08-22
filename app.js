@@ -26,9 +26,6 @@ var watson = require('watson-developer-cloud');
 var expressBrowserify = require('express-browserify');
 var mongoose = require('mongoose');
 
-
-
-
 // CONTROLLERS
 var userController = require('./server/controllers/user');
 var lightController = require('./server/controllers/mockapi');
@@ -41,15 +38,12 @@ require('dotenv').load({silent: true});
 require('./config/express')(app);
 require('./config/passport');
 
-
-
 //mongo DB stuff
 mongoose.connect(process.env.MONGODB);
 mongoose.connection.on('error', function() {
  console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
  process.exit(1);
 });
-
 
 // automatically compile and serve the front-end js
 app.get('/js/index.js', expressBrowserify('src/index.js', {
@@ -122,8 +116,9 @@ app.post('/forgot', userController.forgotPost);
 app.get('/reset', userController.resetGet);
 app.post('/reset', userController.resetPost);
 
-//socket.io stuff
+app.get('/about', userController.goToAbout);
 
+//socket.io stuff
 app.post('/lightItUp', lightController.lightItUp);
 
 // SOCKET stuff

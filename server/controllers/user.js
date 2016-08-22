@@ -5,6 +5,12 @@ var passport = require('passport');
 var User = require('../models/User');
 //var sockets = require('sockets');
 
+exports.goToAbout = function(req, res) {
+  res.render('account/about', {
+    title: 'About'
+  });
+};
+
 /**
  * Login required middleware
  */
