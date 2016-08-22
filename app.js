@@ -31,7 +31,7 @@ var mongoose = require('mongoose');
 
 // CONTROLLERS
 var userController = require('./server/controllers/user');
-var lightController = require('./server/controllers/mockaip');
+var lightController = require('./server/controllers/mockapi');
 var meetingController = require('./server/controllers/meeting');
 
 // load environment properties from a .env file for local development
@@ -90,19 +90,28 @@ app.post('/api/token', function(req, res, next) {
   });
 });
 
+app.get('/api/userdata', function(req, res) {
+    if (req.user === undefined) {
+        // The user is not logged in
+        res.json({});
+    } else {
+        res.json({
+            username: req.user
+        });
+    }
+});
+
 app.get('/signup', userController.signupGet);
 app.post('/signup', userController.signupPost);
 
 app.get('/login', userController.loginGet);
 app.post('/login', userController.loginPost);
 
-app.get('/meeting', meetingController.getAllMeetings);
+app.get('/meetings', meetingController.getAllMeetings);
+app.post('/meetings', meetingController.create);
+app.get('/meeting/:id', meetingController.join);
 
 app.get('/onemeeting', meetingController.getMeeting);
-
-app.post('/meeting', meetingController.create);
-
-app.put('/joinMeeting/:id', meetingController.joinMeeting);
 
 app.get('/logout', userController.logout);
 
@@ -120,6 +129,14 @@ app.post('/lightItUp', lightController.lightItUp);
 io.on('connection', function(client) {
     console.log('a client has connected');
 });
+
+
+io.on('connection', function(socket){
+  socket.on('chat message', function(obj){
+    io.emit('chat message', obj);
+  });
+});
+
 
 // error-handler settings
 require('./config/error-handler')(app);

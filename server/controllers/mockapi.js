@@ -44,7 +44,7 @@ exports.lightItUp = function (req, res) {
               break;
 
           case 'disgust':
-          console.log("in disgust");
+          //console.log("in disgust");
           // 'r': 89,
           // 'g': 38,
           // 'b': 132
@@ -93,6 +93,7 @@ exports.lightItUp = function (req, res) {
   else {
     watsonResponse = response.docEmotions;
     console.log('watson responded', watsonResponse);
+
     var result = Object.keys(watsonResponse).reduce(function (prev, curr) {
         //console.log('curr', watsonResponse[curr]);
         if (watsonResponse[curr] > watsonResponse[prev]) {
