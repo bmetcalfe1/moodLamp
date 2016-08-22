@@ -15,6 +15,7 @@ exports.create = function(req, res, next) {
 exports.getMeeting = function(req,res, next) {
 
   var meetingId = req.query.meeting;
+
   Meeting.findById(meetingId, function(err, meeting) {
     res.render("account/onemeeting", {meeting: meeting, helpers: {
       printMeeting: function(meeting){
@@ -25,10 +26,9 @@ exports.getMeeting = function(req,res, next) {
 
         return meeting;
       }
-
     }
     });
-})
+  })
 };
 
 exports.getAllMeetings = function(req,res, next) {
@@ -59,13 +59,13 @@ exports.getAllMeetings = function(req,res, next) {
 
 };
 
-exports.join = function(req, res) {
-  console.log(req.body);
-  res.render('meetingbox');
-};
+// exports.join = function(req, res) {
+//   console.log(req.body);
+//   res.render('meetingbox');
+// };
 
 exports.joinMeeting = function(req, res, next) {
-
+  //console.log("this is what req with params looks like", req)
   var updatedObj = req.params.id;
   var updateAttendee = req.body.attendee_id;
 
@@ -73,10 +73,23 @@ exports.joinMeeting = function(req, res, next) {
     {$push: { "attendees": updateAttendee}},
     {new: true},
     function(err, doc) {
-    console.log(doc)
-    res.send(doc);
+    console.log("what's up doc!", doc)
+    //req.params.id = doc.id;
+    //res.render('meetingbox', {meeting: doc.id});
+    //res.send(doc)
+    return;
   });
+  return
 };
+
+exports.meetingbox = function(req, res, next) {
+console.log("im in meetingbox!!!")
+ var meeting = req.params.id;
+
+ res.render('meetingbox');
+
+}
+
 /**
  * POST /signup
  */
