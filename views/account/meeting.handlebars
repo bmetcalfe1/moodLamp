@@ -2,12 +2,10 @@
     <h2>Find or create your meeting.</h2>
 
     <h4>Create your meeting.</h4>
-    <form id="meetingForm" action="/meeting" method="POST">
-
+    <form id="meetingForm" action="/meetings" method="POST">
         <label for="meetingName">Meeting Name</label>
-
         <input type="meetingName" name="meetingName" id="meetingName" placeholder="Call with CEO" autofocus>
-        <button type="submit" onClick="createMeeting()">Create</button>
+        <button type="submit">Create</button>
     </form>
 
 
@@ -42,41 +40,3 @@
     </ul>
 </div>
 </div>
-<script>
-    function createMeeting() {
-        document.getElementById("meetingForm").submit();
-    }
-
-    function jointMeeting(user, entry) {
-        $.ajax({
-            type: "PUT",
-            url: "http://localhost:3000/joinMeeting/" + entry,
-            data: {
-                attendee_id: user
-            },
-            success: function(result) {
-                console.log("first ajax call output this", result)
-                    //console.log("this is after joining a meeting",result);
-                    //window.location.href = "/joinMeeting/" + result._id;
-
-            }
-        })
-    }
-
-    function retrieveMeeting(entry) {
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:3000/onemeeting",
-            data: {
-                meetingId: entry
-            },
-            success: function(result) {
-                console.log("am i getting data from ajax", result)
-                $('#transcripts').append(
-                    '<li>' + result.meeting.name + '</li>'
-                );
-                // $('#transcripts').html(result);
-            }
-        })
-    }
-</script>
