@@ -38,6 +38,17 @@
   color: #FFF;
 }
 
+.about-photo {
+  height: 500px;
+  width: 700px;
+}
+
+.profile-photo {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+}
+
 .col-lg-12 {
   padding: 0px!important;
 }
