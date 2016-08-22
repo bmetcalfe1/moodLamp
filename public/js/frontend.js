@@ -1,4 +1,3 @@
-$(document).ready(function() {
 
   //add class to the body depending on the page.
   $('body').addClass(window.location.pathname.split('/')[1]);
@@ -15,10 +14,10 @@ $(document).ready(function() {
     });
     if($('body').hasClass('meeting')) {
       socket.emit('meetingAttendance', {user: localStorage.getItem('user')} );
+
       socket.on('online users', function(data) {
         console.log('online users here', data);
+
       });
 
     }
-
-})
