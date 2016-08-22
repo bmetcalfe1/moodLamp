@@ -483,3 +483,34 @@ table.kws_occurrences {
   display: block;
   white-space: normal;
 }
+
+
+.memberList {
+  position: absolute;
+  right:0;
+  top:0;
+  left: auto;
+  bottom: auto;
+  height: 100%;
+  width: 150px;
+  background: whitesmoke;
+  z-index: 1020;
+}
+.memberList ul {
+  margin: 0;
+  padding: 10px;
+}
+.memberList li {
+  list-style-type: none;
+}
+.memberList li img {
+  width: 30px;
+  height: 30px;
+  border-radius: 500px;
+  display: inline-block;
+}
+
+.memberList li .name {
+  display: inline-block;
+  font-size: 13px;
+}

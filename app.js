@@ -128,6 +128,7 @@ app.post('/lightItUp', lightController.lightItUp);
 io.on('connection', function(client) {
     console.log('a client has connected!');
     client.on('meetingAttendance', function(data) {
+      console.log('meeting attendance', data);
       io.emit('online users', data.user);
     });
 });
