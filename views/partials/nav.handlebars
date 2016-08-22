@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-static-top rm-bottom-margin">
   <div class="container">
     <div class="navbar-header">
-      <img src="images/stt.svg" class="nav-icon">
+      <img src="/images/stt.svg" class="nav-icon">
       <a class="navbar-brand" href="/">ScribeLytics</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -9,13 +9,15 @@
         {{#if user}}
         <li class="login-info">
           {{#if user.picture}}
-            <img class="avatar" src="{{user.picture}}">
+            <a><img class="avatar" src="{{user.picture}}"></a>
           {{else}}
             <img class="avatar" src="{{user.gravatar}}">
           {{/if}}
-          {{#if user.name}}
-            {{user.name}}
-          {{/if}}
+        </li>
+        <li>
+        {{#if user.name}}
+          <a>{{user.name}}</a>
+        {{/if}}
         </li>
         <li><a href="/meeting">Meeting</a></li>
         <li><a href="/logout">Logout</a></li>

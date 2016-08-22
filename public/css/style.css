@@ -1,14 +1,40 @@
 .avatar {
-  height: 3em;
-  width: 3em;
+  height: 2.5em;
+  width: 2.5em;
   border-radius: 50%;
 }
 
 .nav-icon {
-  height: 3em;
-  width: 3em;
+  height: 2.5em;
+  width: 2.5em;
   border-radius: 50%;
   float: left;
+}
+
+.navbar-brand {
+  margin-left: 0px !important;
+}
+
+.rm-bottom-margin {
+  margin-bottom: 0px;
+}
+
+.custom-jumbotron {
+  background-image: url("http://wp.streetwise.co/wp-content/uploads//2014/10/shutterstock_144845914.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100%;
+  padding: 0px;
+}
+
+.custom-container-jumbotron {
+  margin-left : 0px;
+  margin-right: 0px;
+  padding: 80px 20px;
+  width:  100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  color: #FFF;
 }
 
 .col-lg-12 {
