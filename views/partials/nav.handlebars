@@ -7,17 +7,17 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         {{#if user}}
-        <li class="login-info">
+        <li>
+        {{#if user.name}}
+          <a>Username: {{user.name}}</a>
+        {{/if}}
+        </li>
+        <li>
           {{#if user.picture}}
             <a><img class="avatar" src="{{user.picture}}"></a>
           {{else}}
             <img class="avatar" src="{{user.gravatar}}">
           {{/if}}
-        </li>
-        <li>
-        {{#if user.name}}
-          <a>{{user.name}}</a>
-        {{/if}}
         </li>
         <li><a href="/meeting">Meeting</a></li>
         <li><a href="/logout">Logout</a></li>

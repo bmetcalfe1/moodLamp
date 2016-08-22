@@ -2,6 +2,7 @@
   height: 2.5em;
   width: 2.5em;
   border-radius: 50%;
+  margin: .45em;
 }
 
 .nav-icon {
@@ -9,10 +10,12 @@
   width: 2.5em;
   border-radius: 50%;
   float: left;
+  margin: .45em;
 }
 
 .navbar-brand {
   margin-left: 0px !important;
+  text-decoration: none;
 }
 
 .rm-bottom-margin {
