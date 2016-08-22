@@ -885,7 +885,7 @@ exports.showResult = function(msg, baseString, model) {
         };
         $.post('/lightItUp', obj, function(response) {
           console.log('response', response);
-          //socket.emit('chat message', response);
+          socket.emit('chat message', response);
         });
 
         });

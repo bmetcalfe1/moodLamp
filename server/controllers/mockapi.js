@@ -28,11 +28,12 @@ exports.lightItUp = function (req, res) {
   };
   console.log("parsed string", str);
   function displayColor(obj) {
-    console.log("display",obj);
+    //console.log("display",obj);
     console.log("You feel",obj.tone_name);
-    req.feeling = obj;
-    sockets.emit('chat message', req);
+    req.body.feeling = obj;
+    //sockets.emit('chat message', req);
     //takes in tone name and score, returns color + intensity
+    console.log("new req", req.body);
     switch (obj.tone_name) {
 
           case 'anger':
@@ -128,11 +129,117 @@ exports.lightItUp = function (req, res) {
     request(options, function(error, response, body) {
       if(error) throw new Error(error);
       console.log('body from particle', body);
+      res.send(req);
     });
+
   }
 });
+};
 
-}
+exports.getEmoColor = function (req, res) {
+  console.log('req', req.body);
+  var str = req.body.baseString;
+  var alchemy_language = watson.alchemy_language({
+    api_key: process.env.WATSON_API_KEY
+  });
+  var displayTones;
+  var watsonResponse;
+  var parameters = {
+    text: str
+  };
+  console.log("parsed string", str);
+  function displayColor(obj) {
+    //console.log("display",obj);
+    console.log("You feel",obj.tone_name);
+    req.body.feeling = obj;
+    //sockets.emit('chat message', req);
+    //takes in tone name and score, returns color + intensity
+    console.log("new req", req.body);
+    switch (obj.tone_name) {
+
+          case 'anger':
+            var emoColor = {
+            emotion: obj.tone_name,
+            color: "232,5,33",
+            score: obj.score
+          };
+            console.log(emoColor)
+            return emoColor;
+              break;
+
+          case 'disgust':
+          var emoColor = {
+            emotion: obj.tone_name,
+            color: "89,38,132",
+            score: obj.score
+          };
+          console.log(emoColor)
+          return emoColor;
+              break;
+
+          case 'fear':
+          var emoColor = {
+            emotion: obj.tone_name,
+            color: "50,94,43",
+            score: obj.score
+          };
+          console.log(emoColor)
+          return emoColor;
+              break;
+
+          case 'joy':
+            var emoColor = {
+            emotion: obj.tone_name,
+            color: "255,214,41",
+            score: obj.score
+          };
+          console.log(emoColor)
+          return emoColor;
+              break;
+
+          case 'sadness':
+            var emoColor = {
+            emotion: obj.tone_name,
+            color: "8,109,178",
+            score: obj.score
+          };
+          console.log(emoColor)
+          return emoColor;
+              break;
+
+      }
+  }
+
+  alchemy_language.emotion(parameters, function (err, response) {
+  if (err) {
+    console.log('error:', err);
+  }
+  else {
+    watsonResponse = response.docEmotions;
+    console.log('watson responded', watsonResponse);
+
+    var result = Object.keys(watsonResponse).reduce(function (prev, curr) {
+        //console.log('curr', watsonResponse[curr]);
+        if (watsonResponse[curr] > watsonResponse[prev]) {
+            return curr;
+        }
+        else {
+          return prev;
+        }
+    });
+
+    var resultObj = {
+      tone_name: result,
+      score: parseFloat(watsonResponse[result])
+    };
+
+    var color = displayColor(resultObj);
+    return color;
+
+
+  }
+});
+};
 
 
 //this.lightItUp("hello, i love you");
