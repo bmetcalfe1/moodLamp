@@ -17,7 +17,7 @@ var particle_endpoint = `https://api.particle.io/v1/devices/${process.env.PARTIC
 //and change the color of the light.
 exports.lightItUp = function (req, res) {
   console.log('req', req.body);
-  var str = req.body.data;
+  var str = req.body.baseString;
   var alchemy_language = watson.alchemy_language({
     api_key: process.env.WATSON_API_KEY
   });
@@ -30,6 +30,8 @@ exports.lightItUp = function (req, res) {
   function displayColor(obj) {
     console.log("display",obj);
     console.log("You feel",obj.tone_name);
+    req.feeling = obj;
+    sockets.emit('chat message', req);
     //takes in tone name and score, returns color + intensity
     switch (obj.tone_name) {
 
