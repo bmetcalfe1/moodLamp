@@ -180,7 +180,7 @@ ol ol li:last-child {margin-bottom:0;}
   position:absolute;
   -webkit-user-select: none;
   -moz-user-select: none;
-  display:none;
+  display:none !important;
 }
 
 #confusion-networks {
@@ -203,7 +203,7 @@ ol ol li:last-child {margin-bottom:0;}
   margin-top:-464px;
   opacity:0.6;
   border: 1px solid #d3d3d3;
-  display:none;
+  display:none !important;
 }
 
 #right-arrow {
@@ -215,7 +215,7 @@ ol ol li:last-child {margin-bottom:0;}
   margin-top:-464px;
   opacity:0.6;
   border: 1px solid #d3d3d3;
-  display:none;
+  display:none !important;
 }
 
 #vslider {
@@ -224,7 +224,7 @@ ol ol li:last-child {margin-bottom:0;}
   width:16px;
   position:absolute;
   height:400px;
-  display:none;
+  display:none !important;
 }
 
 .keywords_pane {
