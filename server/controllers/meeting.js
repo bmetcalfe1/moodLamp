@@ -13,10 +13,11 @@ exports.create = function(req, res, next) {
 };
 
 exports.getMeeting = function(req,res, next) {
-  var meetingId = req.query.meeting;
+  var meetingId = req.query.meetingId;
+  console.log("trying to retrive meeting with this id", meetingId)
   Meeting.findById(meetingId, function(err, meeting) {
-
-    res.render('account/onemeeting');
+    console.log("what findById have retrieved", meeting)
+    res.json({meeting: meeting});
 
     // res.render("account/onemeeting", {meeting: meeting, helpers: {
     //   printMeeting: function(meet){
@@ -58,6 +59,7 @@ exports.getMeeting = function(req,res, next) {
 exports.getAllMeetings = function(req,res, next) {
   var user = req.user.id;
   Meeting.find({}, function(err, meetings) {
+    // res.send({meetings: meetings});
     res.render("account/meeting", {user: user, meetings: meetings, helpers: {
             printMeetings: function(meeting) {
               var html = '<ul class="list-group">';

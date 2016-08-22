@@ -10,7 +10,8 @@
 
  <h4>Find your meeting.</h4>
     {{{printMeetings meetings}}}
-  <span id="transcripts"></span>
+  <ul id="transcripts">
+  </ul>
 </div>
 </div>
 <script>
@@ -33,9 +34,13 @@ function retrieveMeeting(entry){
   $.ajax({
     type: "GET",
     url: "http://localhost:3000/onemeeting",
-    data: {meeting: entry},
+    data: {meetingId: entry},
     success: function(result) {
-      $('#transcripts').html(result);
+      console.log("am i getting data from ajax",result)
+      $('#transcripts').append(
+        '<li>' + result.meeting.name + '</li>'
+      );
+      // $('#transcripts').html(result);
     }
   })
 }
