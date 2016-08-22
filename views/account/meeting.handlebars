@@ -24,9 +24,11 @@ function jointMeeting(user,entry){
     url: "http://localhost:3000/joinMeeting/"+ entry,
     data: {attendee_id: user},
     success: function(result) {
-      console.log("this is after joining a meeting",result)
+      console.log("this is after joining a meeting",result);
+      window.location.href = "/joinMeeting/:" + result._id;
     }
   })
+
 }
 
 function retrieveMeeting(entry){

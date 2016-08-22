@@ -59,6 +59,10 @@ exports.getAllMeetings = function(req,res, next) {
 
 };
 
+exports.join = function(req, res) {
+  console.log(req.body);
+  res.render('meetingbox');
+};
 
 exports.joinMeeting = function(req, res, next) {
 

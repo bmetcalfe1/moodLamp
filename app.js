@@ -103,6 +103,7 @@ app.get('/onemeeting', meetingController.getMeeting);
 app.post('/meeting', meetingController.create);
 
 app.put('/joinMeeting/:id', meetingController.joinMeeting);
+app.get('/joinMeeting/:id', meetingController.join);
 
 app.get('/logout', userController.logout);
 
