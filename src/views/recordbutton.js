@@ -57,7 +57,7 @@ exports.initRecordButton = function(ctx) {
             localStorage.setItem('currentlyDisplaying', 'false');
           } else {
             recordButton.css('background-color', '#d74108');
-            recordButton.find('img').attr('src', 'images/stop.svg');
+            recordButton.find('img').attr('src', '../images/stop.svg');
             console.log('starting mic');
             mic.record();
             running = true;

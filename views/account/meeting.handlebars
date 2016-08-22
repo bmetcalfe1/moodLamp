@@ -1,44 +1,82 @@
 <div class="container">
- <h2>Find or create your meeting.</h2>
+    <h2>Find or create your meeting.</h2>
 
- <h4>Create your meeting.</h4>
-   <form id="meetingForm" action="/meeting" method="POST">
-    <label for="meetingName">Meeting Name</label>
-    <input type="meetingName" name="meetingName" id="meetingName" placeholder="Call with CEO" autofocus>
-    <button type="submit" onClick="createMeeting()">Create</button>
-  </form>
+    <h4>Create your meeting.</h4>
+    <form id="meetingForm" action="/meeting" method="POST">
 
- <h4>Find your meeting.</h4>
-    {{{printMeetings meetings}}}
-  
+        <label for="meetingName">Meeting Name</label>
+
+        <input type="meetingName" name="meetingName" id="meetingName" placeholder="Call with CEO" autofocus>
+        <button type="submit" onClick="createMeeting()">Create</button>
+    </form>
+
+
+    <h4>Find your meeting.</h4>
+
+    <div class="container">
+        <div id="meetings" class="row list-group">
+            {{#each meetings}}
+                <div class="item  col-xs-4 col-lg-4">
+                    <div class="thumbnail">
+                        <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                        <div class="caption">
+                            <h4 class="group inner list-group-item-heading">{{this.name}}</h4>
+                            <p class="group inner list-group-item-text">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6">
+                                    <p class="lead"></p>
+                                </div>
+                                <div class="col-xs-12 col-md-6">
+                                    <a class="btn btn-success btn-joinmeeting" href="/meeting/{{this._id}}">JOIN MEETING</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+
+
+    <ul id="transcripts">
+    </ul>
 </div>
 </div>
 <script>
-function createMeeting() {
-    document.getElementById("meetingForm").submit();
-}
-
-function jointMeeting(user,entry){
-  $.ajax({
-    type: "PUT",
-    url: "http://localhost:3000/joinMeeting/"+ entry,
-    data: {attendee_id: user},
-    success: function(result) {
-      console.log("this is after joining a meeting",result);
-      window.location.href = "/joinMeeting/:" + result._id;
+    function createMeeting() {
+        document.getElementById("meetingForm").submit();
     }
-  })
 
-}
+    function jointMeeting(user, entry) {
+        $.ajax({
+            type: "PUT",
+            url: "http://localhost:3000/joinMeeting/" + entry,
+            data: {
+                attendee_id: user
+            },
+            success: function(result) {
+                console.log("first ajax call output this", result)
+                    //console.log("this is after joining a meeting",result);
+                    //window.location.href = "/joinMeeting/" + result._id;
 
-function retrieveMeeting(entry){
-  $.ajax({
-    type: "GET",
-    url: "http://localhost:3000/onemeeting",
-    data: {meeting: entry},
-    success: function(result) {
-      console.log("this is after retrieving a meeting", result)
+            }
+        })
     }
-  })
-}
+
+    function retrieveMeeting(entry) {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:3000/onemeeting",
+            data: {
+                meetingId: entry
+            },
+            success: function(result) {
+                console.log("am i getting data from ajax", result)
+                $('#transcripts').append(
+                    '<li>' + result.meeting.name + '</li>'
+                );
+                // $('#transcripts').html(result);
+            }
+        })
+    }
 </script>

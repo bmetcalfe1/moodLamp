@@ -13,43 +13,72 @@ exports.create = function(req, res, next) {
 };
 
 exports.getMeeting = function(req,res, next) {
-
-  var meetingId = req.query.meeting;
+  var meetingId = req.query.meetingId;
+  console.log("trying to retrive meeting with this id", meetingId)
   Meeting.findById(meetingId, function(err, meeting) {
-    res.render("account/onemeeting", {meeting: meeting, helpers: {
-      printMeeting: function(meeting){
-        //print transcripts here
-        console.log("im getting meeting here too in printMeeting", meeting)
+    console.log("what findById have retrieved", meeting)
+    res.json({meeting: meeting});
 
-        console.log("is this how you get user name?", meeting.attendees[0])
-
-        return meeting;
-      }
-
-    }
-    });
+    // res.render("account/onemeeting", {meeting: meeting, helpers: {
+    //   printMeeting: function(meet){
+    //     //print transcripts here
+    //     console.log("im getting meeting here too in printMeeting", meet)
+    //
+    //   //  console.log("is this how you get user name?", meeting.attendees[0])
+    //   var html = '<div>';
+    //     html += "Meeting name" + meet.name;
+    //     html += '</div>'
+    //     return html;
+    //   }
+    // }
+    // });
 })
-};
+}
+
+
+
+
+// exports.getMeeting = function(req,res, next) {
+//
+//   var meetingId = req.query.meeting;
+//   Meeting.findById(meetingId, function(err, meeting) {
+//     res.render("account/onemeeting", {meeting: meeting, helpers: {
+//       printMeeting: function(meet){
+//         //print transcripts here
+//         console.log("im getting meeting here too in printMeeting", meet)
+//
+//       //  console.log("is this how you get user name?", meeting.attendees[0])
+//       var html = '<div>';
+//         html += "Meeting name" + meet.name;
+//         html += '</div>'
+//         return html;
+//       }
+//     }
+//     });
+// })
+// };
 
 exports.getAllMeetings = function(req,res, next) {
   var user = req.user.id;
   Meeting.find({}, function(err, meetings) {
-    res.render("account/meeting", {user: user, meetings: meetings, helpers: {
-            printMeetings: function(meeting) {
-              var html = '<ul class="list-group">';
-              meeting.sort(function(a,b){return b.created_at-a.created_at })
-              meeting.forEach(function(entry) {
-//`+ "  "+ "entry.name" + " | " + `entry.created_at
-                html += `<li>
-                            <input id="joinMeet" type="button" onclick="jointMeeting('`+ user + "','"+ entry.id +`')" value="Join">
-                            <input id="retrieveMeet" type="button" onclick="retrieveMeeting('`+ entry.id +`')" value="Transcript">
-                            <div>`+ entry.name + `" | "` + entry.created_at + `</div>
-                        </li>`
-              });
-              html += "</ul>";
-              return html;
-            }
-      }});
+      res.render('account/meeting', {meetings: meetings});
+
+//     res.render("account/meeting", {user: user, meetings: meetings, helpers: {
+//             printMeetings: function(meeting) {
+//               var html = '<ul class="list-group">';
+//               meeting.sort(function(a,b){return b.created_at-a.created_at })
+//               meeting.forEach(function(entry) {
+// //`+ "  "+ "entry.name" + " | " + `entry.created_at
+//                 html += `<li>
+//                             <input id="joinMeet" type="button" onclick="jointMeeting('`+ user + "','"+ entry.id +`')" value="Join">
+//                             <input id="retrieveMeet" type="button" onclick="retrieveMeeting('`+ entry.id +`')" value="Transcript">
+//                             <div>`+ entry.name + `" | "` + entry.created_at + `</div>
+//                         </li>`
+//               });
+//               html += "</ul>";
+//               return html;
+//             }
+//       }});
   })
   .populate('attendees')
   .exec(function (err, meeting) {
@@ -60,12 +89,36 @@ exports.getAllMeetings = function(req,res, next) {
 };
 
 exports.join = function(req, res) {
-  console.log(req.body);
-  res.render('meetingbox');
+  console.log("this is in join", req.body);
+
+  var meetingID = req.params.id;
+  var updateAttendee = req.body.attendee_id;
+
+  Meeting.findOneAndUpdate(meetingID,
+    {$push: { "attendees": updateAttendee}},
+    {new: true},
+    function(err, doc) {
+    console.log("what's up doc!", doc);
+    //req.params.id = doc.id;
+    res.render('meetingbox', {meeting: doc});
+  });
 };
 
-exports.joinMeeting = function(req, res, next) {
+//this is the real
 
+exports.showMeeting = function(req, res, next) {
+  //console.log("this is what req with params looks like", req)
+  var meetingId = req.params.id;
+  console.log("trying to retrive meeting with this id", meetingId)
+  Meeting.findById(meetingId, function(err, meeting) {
+    console.log("what findById have retrieved", meeting)
+    res.json({meeting: meeting});
+  })
+};
+
+
+exports.joinMeeting = function(req, res, next) {
+  //console.log("this is what req with params looks like", req)
   var updatedObj = req.params.id;
   var updateAttendee = req.body.attendee_id;
 
@@ -73,10 +126,21 @@ exports.joinMeeting = function(req, res, next) {
     {$push: { "attendees": updateAttendee}},
     {new: true},
     function(err, doc) {
-    console.log(doc)
-    res.send(doc);
+    console.log("what's up doc!", doc)
+    //req.params.id = doc.id;
+    //res.render('meetingbox', {meeting: doc.id});
+    //res.send(doc)
   });
 };
+
+// exports.meetingbox = function(req, res, next) {
+// console.log("im in meetingbox!!!")
+//  var meeting = req.params.id;
+//
+//  res.render('meetingbox');
+//
+// }
+
 /**
  * POST /signup
  */

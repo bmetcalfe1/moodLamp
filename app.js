@@ -107,14 +107,11 @@ app.post('/signup', userController.signupPost);
 app.get('/login', userController.loginGet);
 app.post('/login', userController.loginPost);
 
-app.get('/meeting', meetingController.getAllMeetings);
+app.get('/meetings', meetingController.getAllMeetings);
+app.post('/meetings', meetingController.create);
+app.get('/meeting/:id', meetingController.join);
 
 app.get('/onemeeting', meetingController.getMeeting);
-
-app.post('/meeting', meetingController.create);
-
-app.put('/joinMeeting/:id', meetingController.joinMeeting);
-app.get('/joinMeeting/:id', meetingController.join);
 
 app.get('/logout', userController.logout);
 
