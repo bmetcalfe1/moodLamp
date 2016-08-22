@@ -1,5 +1,4 @@
 
-
   <div>
     <!-- Step 1 Section-->
     <div class="container">
@@ -86,16 +85,3 @@
 
 
   <p id="messages"> Messages will appear here </p>
-
-
-
-
-  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-  <script>
-    var socket = io();
-    socket.on('chat message', function(obj){
-        console.log("obj", obj);
-        $('#messages').text(obj.User.username.name + obj.baseString);
-      });
-  </script>

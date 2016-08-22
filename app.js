@@ -96,7 +96,7 @@ app.get('/api/userdata', function(req, res) {
         res.json({});
     } else {
         res.json({
-            username: req.user
+            user: req.user
         });
     }
 });
@@ -109,9 +109,8 @@ app.post('/login', userController.loginPost);
 
 app.get('/meetings', meetingController.getAllMeetings);
 app.post('/meetings', meetingController.create);
-app.get('/meeting/:id', meetingController.join);
-
-app.get('/onemeeting', meetingController.getMeeting);
+app.get('/meeting/:id', meetingController.show);
+app.put('/meeting/:id', meetingController.update);
 
 app.get('/logout', userController.logout);
 
@@ -127,15 +126,12 @@ app.post('/lightItUp', lightController.lightItUp);
 
 // SOCKET stuff
 io.on('connection', function(client) {
-    console.log('a client has connected');
+    console.log('a client has connected!');
+    client.on('meetingAttendance', function(data) {
+      io.emit('online users', data.user);
+    });
 });
 
-
-io.on('connection', function(socket){
-  socket.on('chat message', function(obj){
-    io.emit('chat message', obj);
-  });
-});
 
 
 // error-handler settings
