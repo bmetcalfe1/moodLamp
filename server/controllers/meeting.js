@@ -13,23 +13,47 @@ exports.create = function(req, res, next) {
 };
 
 exports.getMeeting = function(req,res, next) {
-
   var meetingId = req.query.meeting;
   Meeting.findById(meetingId, function(err, meeting) {
-    res.render("account/onemeeting", {meeting: meeting, helpers: {
-      printMeeting: function(meeting){
-        //print transcripts here
-        console.log("im getting meeting here too in printMeeting", meeting)
 
-        console.log("is this how you get user name?", meeting.attendees[0])
+    res.render('account/onemeeting');
 
-        return meeting;
-      }
-
-    }
-    });
+    // res.render("account/onemeeting", {meeting: meeting, helpers: {
+    //   printMeeting: function(meet){
+    //     //print transcripts here
+    //     console.log("im getting meeting here too in printMeeting", meet)
+    //
+    //   //  console.log("is this how you get user name?", meeting.attendees[0])
+    //   var html = '<div>';
+    //     html += "Meeting name" + meet.name;
+    //     html += '</div>'
+    //     return html;
+    //   }
+    // }
+    // });
 })
 };
+
+
+// exports.getMeeting = function(req,res, next) {
+//
+//   var meetingId = req.query.meeting;
+//   Meeting.findById(meetingId, function(err, meeting) {
+//     res.render("account/onemeeting", {meeting: meeting, helpers: {
+//       printMeeting: function(meet){
+//         //print transcripts here
+//         console.log("im getting meeting here too in printMeeting", meet)
+//
+//       //  console.log("is this how you get user name?", meeting.attendees[0])
+//       var html = '<div>';
+//         html += "Meeting name" + meet.name;
+//         html += '</div>'
+//         return html;
+//       }
+//     }
+//     });
+// })
+// };
 
 exports.getAllMeetings = function(req,res, next) {
   var user = req.user.id;

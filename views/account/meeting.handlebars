@@ -10,7 +10,7 @@
 
  <h4>Find your meeting.</h4>
     {{{printMeetings meetings}}}
-  
+  <span id="transcripts"></span>
 </div>
 </div>
 <script>
@@ -35,7 +35,7 @@ function retrieveMeeting(entry){
     url: "http://localhost:3000/onemeeting",
     data: {meeting: entry},
     success: function(result) {
-      console.log("this is after retrieving a meeting", result)
+      $('#transcripts').html(result);
     }
   })
 }
