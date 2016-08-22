@@ -22,7 +22,8 @@ exports.ensureAuthenticated = function(req, res, next) {
 exports.loginGet = function(req, res) {
   if (req.user) {
     //sockets.emit("userloggedin", req.user);
-    return res.redirect('/');
+    //return res.redirect('/');
+    return res.redirect('/meeting');
   }
   res.render('account/login', {
     title: 'Log in'
@@ -51,7 +52,8 @@ exports.loginPost = function(req, res, next) {
       return res.redirect('/login')
     }
     req.logIn(user, function(err) {
-      res.redirect('/');
+      //res.redirect('/');
+      res.redirect('/meeting');
     });
   })(req, res, next);
 };
