@@ -1,26 +1,29 @@
-<nav>
+<nav class="navbar navbar-default navbar-static-top rm-bottom-margin">
   <div class="container">
-    <ul class="list-inline">
-      <li><a href="/">Home</a></li>
-      {{#if user}}
-      <li>
-        {{#if user.picture}}
-          <img class="avatar" src="{{user.picture}}">
-        {{else}}
-          <img class="avatar" src="{{user.gravatar}}">
-        {{/if}}
-        {{#if user.name}}
-          {{user.name}}
-        {{else}}
-          {{user.email}}
-        {{/if}}
-      </li>
-      <li><a href="/meeting">Meeting</a></li>
-      <li><a href="/logout">Logout</a></li>
-        {{else}}
-          <li><a href="/login">Log in</a></li>
-          <li><a href="/signup">Sign up</a></li>
-        {{/if}}
-    </ul>
+    <div class="navbar-header">
+      <img src="images/stt.svg" class="nav-icon">
+      <a class="navbar-brand" href="/">ScribeLytics</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        {{#if user}}
+        <li class="login-info">
+          {{#if user.picture}}
+            <img class="avatar" src="{{user.picture}}">
+          {{else}}
+            <img class="avatar" src="{{user.gravatar}}">
+          {{/if}}
+          {{#if user.name}}
+            {{user.name}}
+          {{/if}}
+        </li>
+        <li><a href="/meeting">Meeting</a></li>
+        <li><a href="/logout">Logout</a></li>
+          {{else}}
+            <li><a href="/login">Log in</a></li>
+            <li><a href="/signup">Sign up</a></li>
+          {{/if}}
+      </ul>
+    </div>
   </div>
 </nav>
