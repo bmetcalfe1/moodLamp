@@ -31,7 +31,7 @@ var mongoose = require('mongoose');
 
 // CONTROLLERS
 var userController = require('./server/controllers/user');
-var lightController = require('./server/controllers/mockaip');
+var lightController = require('./server/controllers/mockapi');
 var meetingController = require('./server/controllers/meeting');
 
 // load environment properties from a .env file for local development
