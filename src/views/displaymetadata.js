@@ -883,7 +883,11 @@ exports.showResult = function(msg, baseString, model) {
           'User': data,
           'baseString': baseString + text
         };
-        socket.emit('chat message', obj);
+        $.post('/lightItUp', obj, function(response) {
+          console.log('response', response);
+          //socket.emit('chat message', response);
+        });
+
         });
 
 
@@ -894,11 +898,7 @@ exports.showResult = function(msg, baseString, model) {
       //   $('#messages').val($('<li>').text(msg));
       // });
 
-      $.post('/lightItUp', {
-        data: baseString + text
-      }, function(response) {
-        console.log('response', response);
-      });
+
 
     }
   }

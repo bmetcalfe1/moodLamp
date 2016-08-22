@@ -102,7 +102,7 @@
     var socket = io();
     socket.on('chat message', function(obj){
         console.log("obj", obj);
-        $('#messages').text(obj.User.username.name + obj.baseString);
+        $('#messages').text(obj.User.username.name + obj.baseString + obj.feeling.tone_name);
       });
   </script>
 </div>
