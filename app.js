@@ -68,15 +68,13 @@ var authService = watson.authorization(config);
 
 app.get('/', function(req, res) {
   res.render('microphone', {
-    ct: req._csrfToken,
-    GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID
+    ct: req._csrfToken
   });
 });
 
 app.get('/microphone', function(req, res) {
   res.render('microphone', {
-    ct: req._csrfToken,
-    GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID
+    ct: req._csrfToken
   });
 });
 
