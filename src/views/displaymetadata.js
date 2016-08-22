@@ -874,12 +874,32 @@ exports.showResult = function(msg, baseString, model) {
       }
       $('#resultsText').val(baseString + text);
 
-      console.log('basestring', baseString + text);
+      //console.log('basestring', baseString + text);
+      var socket = io('http://localhost:3000');
+
+      $.getJSON("../api/userdata", function(data) {
+        console.log('basestring', baseString + text);
+        var obj = {
+          'User': data,
+          'baseString': baseString + text
+        };
+        socket.emit('chat message', obj);
+        });
+
+
+
+
+      // socket.on('chat message', function(msg){
+      //   console.log("client socket heard: ",msg)
+      //   $('#messages').val($('<li>').text(msg));
+      // });
+
       $.post('/lightItUp', {
         data: baseString + text
       }, function(response) {
         console.log('response', response);
       });
+
     }
   }
   updateTextScroll();
