@@ -88,7 +88,7 @@ app.get('/api/userdata', function(req, res) {
         res.json({});
     } else {
         res.json({
-            username: req.user
+            user: req.user
         });
     }
 });
@@ -99,14 +99,10 @@ app.post('/signup', userController.signupPost);
 app.get('/login', userController.loginGet);
 app.post('/login', userController.loginPost);
 
-app.get('/meeting', meetingController.getAllMeetings);
-
-app.get('/onemeeting', meetingController.getMeeting);
-
-app.post('/meeting', meetingController.create);
-
-app.put('/joinMeeting/:id', meetingController.joinMeeting);
-app.get('/joinMeeting/:id', meetingController.join);
+app.get('/meetings', meetingController.getAllMeetings);
+app.post('/meetings', meetingController.create);
+app.get('/meeting/:id', meetingController.show);
+app.put('/meeting/:id', meetingController.update);
 
 app.get('/logout', userController.logout);
 
@@ -120,18 +116,57 @@ app.get('/about', userController.goToAbout);
 
 //socket.io stuff
 app.post('/lightItUp', lightController.lightItUp);
+app.get('/lightItUp', lightController.getEmoColor);
 
 // SOCKET stuff
+var users_array = [];
+var concated_array;
 io.on('connection', function(client) {
-    console.log('a client has connected');
+    console.log('a client has connected!');
+    client.on('chat message', function(data){
+      io.emit('chat message', data);
+    });
+    client.on('meetingAttendance', function(data) {
+      users_array = users_array.concat(data.users);
+      console.log('concated array', users_array);
+      io.emit('online users', users_array);
+    });
 });
 
+  // client.on('meetingAttendance', function(data) {
+  //   var data = { user: JSON.parse(data.user)};
+  //   io.emit('meetingAttendance', data)
+  //
+  //   // function containsObject(obj, list) {
+  //   //   var i;
+  //   //   for (i = 0; i < list.length; i++) {
+  //   //     if (list[i] === obj) {
+  //   //       return true;
+  //   //     }
+  //   //   }
+  //   //   return false;
+  //   // }
+  //
+  //   // if(!containsObject(data.user, online_users)){
+  //   //   console.log("im sending out a new guy \n")
+  //   //   console.log(data.user)
+  //   //   online_users.push(data.user);
+  //   // }
+  //   // console.log("server's list of online users",online_users )
+  //   // online_users.forEach(function(data){
+  //   //data = JSON.stringify(data)
+  //   //console.log("stringify before sending from server \n", typeof data)
+  //   // console.log("inside foreach", data)
+  //   // var data = { user: data};
+  //   // io.emit('meetingAttendance', data)
+  //   // console.log("a guy was sent out to the clients", data)
+  //   // })
+  //
+  // })
 
-io.on('connection', function(socket){
-  socket.on('chat message', function(obj){
-    io.emit('chat message', obj);
-  });
-});
+
+//});
+
 
 
 // error-handler settings

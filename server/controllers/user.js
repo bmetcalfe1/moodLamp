@@ -29,7 +29,7 @@ exports.loginGet = function(req, res) {
   if (req.user) {
     //sockets.emit("userloggedin", req.user);
     //return res.redirect('/');
-    return res.redirect('/meeting');
+    return res.redirect('/meetings');
   }
   res.render('account/login', {
     title: 'Log in'
@@ -59,7 +59,7 @@ exports.loginPost = function(req, res, next) {
     }
     req.logIn(user, function(err) {
       //res.redirect('/');
-      res.redirect('/meeting');
+      res.redirect('/meetings');
     });
   })(req, res, next);
 };
