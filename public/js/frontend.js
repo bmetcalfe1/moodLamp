@@ -17,12 +17,13 @@ $(document).ready(function() {
   if ($('body').hasClass('meeting')) {
 
     $.get('/api/userdata', function(user) {
+
       socket.emit('meetingAttendance', {
         user: JSON.stringify(user)
       });
 
-      socket.on('online users', function(data) {
-        console.log('online users here', data);
+      socket.on('meetingAttendance', function(data) {
+        console.log('online user here', data);
 
         function containsObject(obj, list) {
           var i;
@@ -33,20 +34,19 @@ $(document).ready(function() {
           }
           return false;
         }
+        console.log("client list of online users", online_users)
+
 
         if(!containsObject(data, online_users)){
           online_users.push(data)
         }
 
         var newHTML = [];
-
         $.each(online_users, function(index, value) {
-          //console.log("what is value made of", typeof value)
-
-          var user = JSON.parse(value);
-
-          console.log("what is  user.user.name",  user.user.name)
-
+          console.log("what is value made of", typeof value)
+          console.log("what is value", value)
+          //var user = JSON.parse(value);
+          //console.log("what is value made of value after jsonparse", typeof user)
           newHTML.push(
             `<li>
               <img src="http://placehold.it/350x350" alt="" />
@@ -59,7 +59,10 @@ $(document).ready(function() {
 
         $(".list").html(newHTML.join(""));
 
+
       });
+
+
 
     });
   };

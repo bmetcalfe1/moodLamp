@@ -125,14 +125,51 @@ app.post('/reset', userController.resetPost);
 app.post('/lightItUp', lightController.lightItUp);
 
 // SOCKET stuff
+var online_users = [];
 io.on('connection', function(client) {
-    console.log('a client has connected!');
+    // console.log('a client has connected!');
     client.on('meetingAttendance', function(data) {
       console.log('meeting attendance', data);
       io.emit('online users', data.user);
-    });
+
 });
 
+
+//var data = JSON.parse(data)
+//console.log("inside socket.on type of", typeof data)
+function containsObject(obj, list) {
+  var i;
+  for (i = 0; i < list.length; i++) {
+    if (list[i] === obj) {
+      return true;
+    }
+  }
+  return false;
+}
+
+//var presence = containsObject(data, online_users);
+
+//console.log("is user already online?", presence)
+
+
+  client.on('meetingAttendance', function(data) {
+    if(!containsObject(data, online_users)){
+    console.log("im sending out a new guy \n")
+    console.log(data)
+    online_users.push(data)
+
+    online_users.forEach(function(data){
+      //data = JSON.stringify(data)
+      //console.log("stringify before sending from server \n", typeof data)
+      console.log(data)
+      io.emit('meetingAttendance', data)
+      console.log("a guy was sent out to the clients")
+    })
+}
+  })
+
+
+});
 
 
 // error-handler settings
