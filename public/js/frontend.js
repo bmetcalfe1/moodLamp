@@ -3,7 +3,7 @@ $(document).ready(function() {
   //add class to the body depending on the page.
   $('body').addClass(window.location.pathname.split('/')[1]);
 
-  socket.on('chat message', function(msg){
+  socket.on('chat message', function(msg) {
     console.log("msg", msg);
     var color = msg.feeling.color;
     console.log(color.split);
@@ -12,7 +12,7 @@ $(document).ready(function() {
       return parseInt(str)
     });
 
-    $("#messages").text(`${msg.User.user.name} said: ${msg.baseString}`);
+    $("#messages").text(`${msg.User.name} said: ${msg.baseString}`);
     $("#messages").css({
       "background-color": `rgb(${nums[0]},${nums[1]},${nums[2]})`,
       "transition": "2s"
@@ -27,6 +27,7 @@ $(document).ready(function() {
   if ($('body').hasClass('meeting')) {
     $.get('/api/userdata', function(user) {
       //var user = JSON.stringify(user.user);
+      localStorage.setItem('user', JSON.stringify(user.user));
       online_users.push(user.user);
       socket.emit('meetingAttendance',{users: online_users});
     }); // api.get user data
@@ -56,6 +57,8 @@ $(document).ready(function() {
       });
 
       $(".list").html(newHTML.join(""));
+
+
 
     }); // socket
 

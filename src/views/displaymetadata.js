@@ -46,7 +46,7 @@ var scrolled = false;
 // var textScrolled = false;
 var pushed = 0;
 var popped = 0;
-var socket = io('http://localhost:3000');
+var socket = io();
 
 ctx.font = defaultFont;
 
@@ -873,10 +873,9 @@ exports.showResult = function(msg, baseString, model) {
         console.log("same text");
       }
       else {
-        $.getJSON("../api/userdata", function(data) {
           console.log('newText', newText);
           var obj = {
-            'User': data,
+            'User': localStorage.user,
             'baseString': newText
           };
 
@@ -890,8 +889,6 @@ exports.showResult = function(msg, baseString, model) {
           });
 
           oldText = newText;
-
-        });
       }
     }
     //
