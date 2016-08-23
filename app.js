@@ -153,19 +153,23 @@ function containsObject(obj, list) {
 
 
   client.on('meetingAttendance', function(data) {
-    if(!containsObject(data, online_users)){
-    console.log("im sending out a new guy \n")
-    console.log(data)
-    online_users.push(data)
-
-    online_users.forEach(function(data){
+    console.log("what server sees from client", data)
+    var data = { user: JSON.parse(data.user)};
+    console.log("parsed the user inside user property", data)
+      if(!containsObject(data.user, online_users)){
+        console.log("im sending out a new guy \n")
+        console.log(data.user)
+        online_users.push(data.user)
+      }
+      online_users.forEach(function(data){
       //data = JSON.stringify(data)
       //console.log("stringify before sending from server \n", typeof data)
-      console.log(data)
+      console.log("inside foreach", data)
+      var data = { user: data};
       io.emit('meetingAttendance', data)
-      console.log("a guy was sent out to the clients")
+      console.log("a guy was sent out to the clients", data)
     })
-}
+
   })
 
 

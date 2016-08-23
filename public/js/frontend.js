@@ -17,10 +17,14 @@ $(document).ready(function() {
   if ($('body').hasClass('meeting')) {
 
     $.get('/api/userdata', function(user) {
-
-      socket.emit('meetingAttendance', {
-        user: JSON.stringify(user)
-      });
+      console.log("what does get see in user" , user.user)
+      //var user = JSON.stringify(user.user);
+      socket.emit('meetingAttendance',
+      {
+         user: JSON.stringify(user.user)
+      }
+    );
+    console.log("after sending out to server" , user)
 
       socket.on('meetingAttendance', function(data) {
         console.log('online user here', data);
@@ -51,7 +55,7 @@ $(document).ready(function() {
             `<li>
               <img src="http://placehold.it/350x350" alt="" />
                 <div class="name">
-                  ` + user.user.name + `
+                  ` + value.user.name + `
                 </div>
             </li>`
           );
