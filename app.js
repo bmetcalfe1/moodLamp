@@ -126,18 +126,53 @@ app.post('/lightItUp', lightController.lightItUp);
 app.get('/lightItUp', lightController.getEmoColor);
 
 // SOCKET stuff
+var users_array = [];
+var concated_array;
 io.on('connection', function(client) {
     console.log('a client has connected!');
     client.on('chat message', function(data){
       io.emit('chat message', data);
     });
-
     client.on('meetingAttendance', function(data) {
-      io.emit('online users', data.user);
+      users_array = users_array.concat(data.users);
+      console.log('concated array', users_array);
+      io.emit('online users', users_array);
     });
-
 });
 
+  // client.on('meetingAttendance', function(data) {
+  //   var data = { user: JSON.parse(data.user)};
+  //   io.emit('meetingAttendance', data)
+  //
+  //   // function containsObject(obj, list) {
+  //   //   var i;
+  //   //   for (i = 0; i < list.length; i++) {
+  //   //     if (list[i] === obj) {
+  //   //       return true;
+  //   //     }
+  //   //   }
+  //   //   return false;
+  //   // }
+  //
+  //   // if(!containsObject(data.user, online_users)){
+  //   //   console.log("im sending out a new guy \n")
+  //   //   console.log(data.user)
+  //   //   online_users.push(data.user);
+  //   // }
+  //   // console.log("server's list of online users",online_users )
+  //   // online_users.forEach(function(data){
+  //   //data = JSON.stringify(data)
+  //   //console.log("stringify before sending from server \n", typeof data)
+  //   // console.log("inside foreach", data)
+  //   // var data = { user: data};
+  //   // io.emit('meetingAttendance', data)
+  //   // console.log("a guy was sent out to the clients", data)
+  //   // })
+  //
+  // })
+
+
+});
 
 
 
