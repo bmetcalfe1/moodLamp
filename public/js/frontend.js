@@ -15,60 +15,40 @@ $(document).ready(function() {
   var online_users = [];
 
   if ($('body').hasClass('meeting')) {
-
     $.get('/api/userdata', function(user) {
-      console.log("what does get see in user" , user.user)
       //var user = JSON.stringify(user.user);
-      socket.emit('meetingAttendance',
-      {
-         user: JSON.stringify(user.user)
-      }
-    );
-    console.log("after sending out to server" , user)
+      online_users.push(user.user);
+      socket.emit('meetingAttendance',{users: online_users});
+    }); // api.get user data
 
-      socket.on('meetingAttendance', function(data) {
-        console.log('online user here', data);
+    socket.on('online users', function(data) {
+      console.log('online user here', data);
 
-        function containsObject(obj, list) {
-          var i;
-          for (i = 0; i < list.length; i++) {
-            if (list[i] === obj) {
-              return true;
-            }
-          }
-          return false;
-        }
-        console.log("client list of online users", online_users)
+      // iterate over data
+      // compare it to online_users array
+      // only push if it does not exist in the array.
 
+      online_users = _.uniqBy(online_users.concat(data), 'name');
+      // console.log("client list of online users", online_users)
+      // console.log("user to check for repeated", data.user)
 
-        if(!containsObject(data, online_users)){
-          online_users.push(data)
-        }
+      var newHTML = [];
+      $.each(online_users, function(index, value) {
 
-        var newHTML = [];
-        $.each(online_users, function(index, value) {
-          console.log("what is value made of", typeof value)
-          console.log("what is value", value)
-          //var user = JSON.parse(value);
-          //console.log("what is value made of value after jsonparse", typeof user)
-          newHTML.push(
-            `<li>
-              <img src="http://placehold.it/350x350" alt="" />
-                <div class="name">
-                  ` + value.user.name + `
-                </div>
-            </li>`
-          );
-        });
-
-        $(".list").html(newHTML.join(""));
-
-
+        newHTML.push(
+          `<li>
+            <img src="http://placehold.it/350x350" alt="" />
+              <div class="name">
+                ` + value.name + `
+              </div>
+          </li>`
+        );
       });
 
+      $(".list").html(newHTML.join(""));
 
+    }); // socket
 
-    });
-  };
+  }; // if in meeting page
 
 });

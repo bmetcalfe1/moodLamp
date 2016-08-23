@@ -125,52 +125,47 @@ app.post('/reset', userController.resetPost);
 app.post('/lightItUp', lightController.lightItUp);
 
 // SOCKET stuff
-var online_users = [];
+var users_array = [];
+var concated_array;
 io.on('connection', function(client) {
     // console.log('a client has connected!');
     client.on('meetingAttendance', function(data) {
-      console.log('meeting attendance', data);
-      io.emit('online users', data.user);
 
-});
+      users_array = users_array.concat(data.users);
+      console.log('concated array', users_array);
+      io.emit('online users', users_array);
+    });
 
-
-//var data = JSON.parse(data)
-//console.log("inside socket.on type of", typeof data)
-function containsObject(obj, list) {
-  var i;
-  for (i = 0; i < list.length; i++) {
-    if (list[i] === obj) {
-      return true;
-    }
-  }
-  return false;
-}
-
-//var presence = containsObject(data, online_users);
-
-//console.log("is user already online?", presence)
-
-
-  client.on('meetingAttendance', function(data) {
-    console.log("what server sees from client", data)
-    var data = { user: JSON.parse(data.user)};
-    console.log("parsed the user inside user property", data)
-      if(!containsObject(data.user, online_users)){
-        console.log("im sending out a new guy \n")
-        console.log(data.user)
-        online_users.push(data.user)
-      }
-      online_users.forEach(function(data){
-      //data = JSON.stringify(data)
-      //console.log("stringify before sending from server \n", typeof data)
-      console.log("inside foreach", data)
-      var data = { user: data};
-      io.emit('meetingAttendance', data)
-      console.log("a guy was sent out to the clients", data)
-    })
-
-  })
+  // client.on('meetingAttendance', function(data) {
+  //   var data = { user: JSON.parse(data.user)};
+  //   io.emit('meetingAttendance', data)
+  //
+  //   // function containsObject(obj, list) {
+  //   //   var i;
+  //   //   for (i = 0; i < list.length; i++) {
+  //   //     if (list[i] === obj) {
+  //   //       return true;
+  //   //     }
+  //   //   }
+  //   //   return false;
+  //   // }
+  //
+  //   // if(!containsObject(data.user, online_users)){
+  //   //   console.log("im sending out a new guy \n")
+  //   //   console.log(data.user)
+  //   //   online_users.push(data.user);
+  //   // }
+  //   // console.log("server's list of online users",online_users )
+  //   // online_users.forEach(function(data){
+  //   //data = JSON.stringify(data)
+  //   //console.log("stringify before sending from server \n", typeof data)
+  //   // console.log("inside foreach", data)
+  //   // var data = { user: data};
+  //   // io.emit('meetingAttendance', data)
+  //   // console.log("a guy was sent out to the clients", data)
+  //   // })
+  //
+  // })
 
 
 });
