@@ -16,6 +16,12 @@
   text-decoration: none;
 }
 
+.front-style {
+  text-align: center;
+  padding: 20px;
+  padding-bottom: 30px;
+}
+
 .rm-bottom-margin {
   margin-bottom: 0px;
 }
@@ -26,6 +32,7 @@
   background-attachment: fixed;
   background-size: 100%;
   padding: 0px;
+  border: none;
 }
 
 .custom-container-jumbotron {
@@ -35,9 +42,13 @@
   width:  100%;
   height: 100%;
   background-color: rgba(0,0,0,0.6);
-  color: #FFF;
+  color: white;
+  text-align: center;
 }
 
+.custom-container-jumbotron h1 {
+  color: white;
+}
 .center {
   text-align: center;
   display: block;
@@ -45,8 +56,8 @@
   margin-right: auto
 }
 
-.meeting-list {
-  
+.row h2 {
+  text-align: center;
 }
 
 .profile-feature {
