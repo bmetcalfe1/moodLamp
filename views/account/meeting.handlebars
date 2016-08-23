@@ -1,17 +1,21 @@
 <div class="container">
   <div class="center">
-  <h2>Find or create your meeting.</h2>
+    <h3>FIND OR CREATE YOUR MEETING</h3>
 
-  <h4>Create your meeting.</h4>
-     <form id="meetingForm" action="/meeting" method="POST">
-      <label for="meetingName">Meeting Name</label>
-      <input type="meetingName" name="meetingName" id="meetingName" placeholder="Call with CEO" autofocus>
-      <button type="submit" onClick="createMeeting()">Create</button>
-    </form>
+    <div class="profile-form">
+      <h5>Create your meeting.</h5>
+         <form id="meetingForm" action="/meeting" method="POST">
+         <label for="meetingName">Meeting Name</label>
+         <input type="meetingName" name="meetingName" id="meetingName" placeholder="Call with CEO" autofocus>
+         <button type="submit" onClick="createMeeting()">Create</button>
+       </form>
+    </div>
 
-  <h4>Find your meeting.</h4>
-      <ul class="meeting-list">{{{printMeetings meetings}}}</ul>
-    
+    <div class="profile-form">
+      <h5>Find your meeting.</h5>
+      <ul class="meeting-list">{{{printMeetings meetings}}}</ul>
+    </div>
+    
   </div>
 </div>
 

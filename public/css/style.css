@@ -64,6 +64,8 @@
   display:flex;
   flex-direction:row;
   justify-content:center;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .about-photo {
@@ -71,11 +73,29 @@
   width: 700px;
 }
 
+.about-story {
+  margin-bottom: 50px;
+}
+
+.about-photo-div {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
 .profile-photo {
   height: 200px;
   width: 200px;
   border-radius: 50%;
   display: flex;
+}
+
+.profile-form {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.meeting-list {
+  padding: 20px;
 }
 
 .col-lg-12 {
