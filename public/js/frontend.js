@@ -8,10 +8,23 @@ $.get('/api/userdata', function(user) {
 
 
 
-socket.on('chat message', function(obj) {
-  console.log("obj", obj);
-  $('#messages').text(obj.User.username.name + obj.baseString);
+socket.on('chat message', function(msg){
+  console.log("msg", msg);
+  var color = msg.feeling.color;
+  console.log(color.split);
+  str = (color.split(','));
+  var nums = str.map(function (str){
+    return parseInt(str)
+  });
+
+  $("#messages").text(`${msg.User.user.name} said: ${msg.baseString}`);
+  $("#messages").css({
+    "background-color": `rgb(${nums[0]},${nums[1]},${nums[2]})`,
+    "transition": "2s"
+  });
+
 });
+
 if ($('body').hasClass('meeting')) {
   socket.emit('meetingAttendance', {
     user: localStorage.getItem('user')

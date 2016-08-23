@@ -1,6 +1,6 @@
 var request = require('request');
 var watson = require('watson-developer-cloud');
-
+var debounce = require('throttle-debounce/debounce');
 
 // setup the watson api stuff
 
@@ -15,8 +15,11 @@ var particle_endpoint = `https://api.particle.io/v1/devices/${process.env.PARTIC
 
 //execute this function with the parameters variable to send the request to watson,
 //and change the color of the light.
+
+//this function will get emotion, and light up the particle board
 exports.lightItUp = function (req, res) {
-  console.log('req', req.body);
+
+  //console.log('req', req.body);
   var str = req.body.baseString;
   var alchemy_language = watson.alchemy_language({
     api_key: process.env.WATSON_API_KEY
@@ -27,13 +30,13 @@ exports.lightItUp = function (req, res) {
     text: str
   };
   console.log("parsed string", str);
+  var payload = req.body;
   function displayColor(obj) {
     //console.log("display",obj);
     console.log("You feel",obj.tone_name);
-    req.body.feeling = obj;
     //sockets.emit('chat message', req);
     //takes in tone name and score, returns color + intensity
-    console.log("new req", req.body);
+    console.log("payload", payload);
     switch (obj.tone_name) {
 
           case 'anger':
@@ -42,7 +45,7 @@ exports.lightItUp = function (req, res) {
             // 'r': 232,
             // 'g': 5,
             // 'b'= 33
-            console.log(colorintesity)
+            console.log("lampcolor", colorintesity)
             return colorintesity;
               break;
 
@@ -53,7 +56,7 @@ exports.lightItUp = function (req, res) {
           // 'b': 132
           var colorintesity = '';
           colorintesity += ("r=" + (89*obj.score) + ",g=" + (38*obj.score) + ",b=" + (132*obj.score))
-          console.log(colorintesity)
+          console.log("lampcolor", colorintesity)
           return colorintesity;
               break;
 
@@ -63,7 +66,7 @@ exports.lightItUp = function (req, res) {
           // 'b': 43
           var colorintesity = '';
           colorintesity += ("r=" + (50*obj.score) + ",g=" + (94*obj.score) + ",b=" + (43*obj.score))
-          console.log(colorintesity)
+          console.log("lampcolor", colorintesity)
           return colorintesity;
               break;
 
@@ -73,7 +76,7 @@ exports.lightItUp = function (req, res) {
           // 'b': 41
           var colorintesity = '';
           colorintesity += ("r=" + (255*obj.score) + ",g=" + (214*obj.score) + ",b=" + (41*obj.score))
-          console.log(colorintesity)
+          console.log("lampcolor", colorintesity)
           return colorintesity;
               break;
 
@@ -83,7 +86,7 @@ exports.lightItUp = function (req, res) {
           // 'b': 178
           var colorintesity = '';
           colorintesity += ("r=" + (8*obj.score) + ",g=" + (109*obj.score) + ",b=" + (178*obj.score))
-          //console.log(colorintesity)
+          console.log("lampcolor", colorintesity)
           return colorintesity;
               break;
 
@@ -94,8 +97,9 @@ exports.lightItUp = function (req, res) {
     console.log('error:', err);
   }
   else {
+    console.log(response);
     watsonResponse = response.docEmotions;
-    console.log('watson responded', watsonResponse);
+    //console.log('watson responded', watsonResponse);
 
     var result = Object.keys(watsonResponse).reduce(function (prev, curr) {
         //console.log('curr', watsonResponse[curr]);
@@ -112,7 +116,7 @@ exports.lightItUp = function (req, res) {
       score: parseFloat(watsonResponse[result])
     };
 
-    var color = displayColor(resultObj);
+    payload.color = displayColor(resultObj);
     var particle_endpoint = `https://api.particle.io/v1/devices/${process.env.PARTICLE_DEVICE_ID}/makeRainbow?access_token=${process.env.PARTICLE_TOKEN}`;
     var options = {
       method: 'POST',
@@ -122,23 +126,30 @@ exports.lightItUp = function (req, res) {
         'content-type': 'multipart/form-data;'
       },
       formData: {
-        args: color
+        args: payload.color
       }
     };
 
     request(options, function(error, response, body) {
-      if(error) throw new Error(error);
-      console.log('body from particle', body);
-      res.send(req);
+      if(error) {
+        throw new Error(error);
+      }
+      else {
+        console.log('body from particle', body);
+        res.status(200);
+      }
     });
 
   }
 });
 };
 
+
+//this function return a feels and rgb color based on string
 exports.getEmoColor = function (req, res) {
-  console.log('req', req.body);
-  var str = req.body.baseString;
+
+  console.log('req', req.query);
+  var str = req.query.baseString;
   var alchemy_language = watson.alchemy_language({
     api_key: process.env.WATSON_API_KEY
   });
@@ -147,14 +158,15 @@ exports.getEmoColor = function (req, res) {
   var parameters = {
     text: str
   };
+  var payload = req.query;
   console.log("parsed string", str);
   function displayColor(obj) {
     //console.log("display",obj);
     console.log("You feel",obj.tone_name);
-    req.body.feeling = obj;
+    req.query.feeling = obj;
     //sockets.emit('chat message', req);
     //takes in tone name and score, returns color + intensity
-    console.log("new req", req.body);
+    console.log("new req", req.query);
     switch (obj.tone_name) {
 
           case 'anger':
@@ -233,8 +245,12 @@ exports.getEmoColor = function (req, res) {
       score: parseFloat(watsonResponse[result])
     };
 
+
     var color = displayColor(resultObj);
-    return color;
+    console.log("color", color);
+    payload.feeling = color;
+    console.log("payload ready", payload);
+    res.send(payload);
 
 
   }

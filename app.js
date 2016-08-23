@@ -123,14 +123,21 @@ app.post('/reset', userController.resetPost);
 //socket.io stuff
 
 app.post('/lightItUp', lightController.lightItUp);
+app.get('/lightItUp', lightController.getEmoColor);
 
 // SOCKET stuff
 io.on('connection', function(client) {
     console.log('a client has connected!');
+    client.on('chat message', function(data){
+      io.emit('chat message', data);
+    });
+
     client.on('meetingAttendance', function(data) {
       io.emit('online users', data.user);
     });
+
 });
+
 
 
 
