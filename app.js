@@ -168,7 +168,7 @@ io.on('connection', function(client) {
           if (users_array[i].socket_id != client_ID)
             disconnected_array.push(users_array[i]);
           }
-          users_array = disconnected_array;
+        users_array = disconnected_array;
         console.log('d/c array', users_array);
         // var i = users_array.indexOf(client.id);
         // users_array = users_array.splice(i, 1);
