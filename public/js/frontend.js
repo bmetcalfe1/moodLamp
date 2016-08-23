@@ -23,12 +23,11 @@ $(document).ready(function() {
 
   // MEETING page
   //Get the current user and send it via websockets
-  var online_users = [];
   if ($('body').hasClass('meeting')) {
     $.get('/api/userdata', function(user) {
       //var user = JSON.stringify(user.user);
-      online_users.push(user.user);
-      socket.emit('meetingAttendance',{users: online_users});
+      // online_users.push(user.user);
+      socket.emit('meetingAttendance',{user: user.user});
     }); // api.get user data
 
     socket.on('online users', function(data) {
@@ -38,12 +37,12 @@ $(document).ready(function() {
       // compare it to online_users array
       // only push if it does not exist in the array.
 
-      online_users = _.uniqBy(online_users.concat(data), 'name');
+      // online_users = _.uniqBy(online_users.concat(data), 'name');
       // console.log("client list of online users", online_users)
       // console.log("user to check for repeated", data.user)
 
       var newHTML = [];
-      $.each(online_users, function(index, value) {
+      $.each(data, function(index, value) {
 
         newHTML.push(
           `<li>
