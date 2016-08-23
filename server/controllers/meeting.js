@@ -43,7 +43,7 @@ exports.getAllMeetings = function(req,res, next) {
                 html += `<li>
                             <input id="joinMeet" type="button" onclick="jointMeeting('`+ user.id + "','"+ entry.id +`')" value="Join">
                             <input id="retrieveMeet" type="button" onclick="retrieveMeeting('`+ entry.id +`')" value="Transcript">
-                            <div>`+ entry.name + `" | "` + entry.created_at + `</div>
+                            <div>`+ entry.name + ` | ` + entry.created_at + `</div>
                         </li>`
               });
               html += "</ul>";
