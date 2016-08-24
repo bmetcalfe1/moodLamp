@@ -700,3 +700,7 @@ table.kws_occurrences {
 #hslider {
   opacity: 0;
 }
+
+.meeting-title {
+  padding: 20px;
+}
