@@ -221,14 +221,14 @@ exports.getEmoColor = function (req, res) {
 
       }
   }
-
+  var watsonResponse;
   alchemy_language.emotion(parameters, function (err, response) {
   if (err) {
     console.log('error:', err);
   }
   else {
     watsonResponse = response.docEmotions;
-    console.log('watson responded', watsonResponse);
+    //console.log('watson responded', watsonResponse);
 
     var result = Object.keys(watsonResponse).reduce(function (prev, curr) {
         //console.log('curr', watsonResponse[curr]);
@@ -249,6 +249,7 @@ exports.getEmoColor = function (req, res) {
     var color = displayColor(resultObj);
     console.log("color", color);
     payload.feeling = color;
+    payload.watsonResponse = watsonResponse
     console.log("payload ready", payload);
     res.send(payload);
 

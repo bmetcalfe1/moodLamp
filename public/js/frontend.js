@@ -3,7 +3,7 @@ $(document).ready(function() {
   //add class to the body depending on the page.
   $('body').addClass(window.location.pathname.split('/')[1]);
 
-  socket.on('chat message', function(msg){
+  socket.on('chat message', function(msg) {
     console.log("msg", msg);
     var color = msg.feeling.color;
     console.log(color.split);
@@ -11,24 +11,43 @@ $(document).ready(function() {
     var nums = str.map(function (str){
       return parseInt(str)
     });
-
-    $("#messages").text(`${msg.User.user.name} said: ${msg.baseString}`);
-    $("#messages").css({
-      "background-color": `rgb(${nums[0]},${nums[1]},${nums[2]})`,
+    var user = msg.User.user;
+    console.log("are we gonna make a div");
+    console.log(user);
+    if( $(`#${user._id}`).length<1) {
+      console.log("looks like we need a div");
+      $("#messages").append(`<div id="${user._id}"></div>`);
+    }
+    $(`#${user._id}`).replaceWith(`
+      <div class="convbox" id="${user._id}">
+        <div class="textboxuser">${user.name}</div>
+        <div class="textbox">${msg.baseString}</div>
+        <div class="feelingsboxes">
+          <div class="anger" style="background-color:rgba(232,5,33,${msg.watsonResponse.anger});"><p>Anger</p></div>
+          <div class="disgust" style="background-color:rgba(89,38,132,${msg.watsonResponse.disgust});"><p>Disgust</p></div>
+          <div class="fear" style="background-color:rgba(50,94,43,${msg.watsonResponse.fear});"><p>Fear</p></div>
+          <div class="joy" style="background-color:rgba(255,214,41,${msg.watsonResponse.joy});"><p>Joy</p></div>
+          <div class="sadness" style="background-color:rgba(8,109,178,${msg.watsonResponse.sadness});"><p>Sadness</p></div>
+        </div>
+        </div>
+    `);
+    $(`#${user._id}`).css({
       "transition": "2s"
     });
+
+    // $("#messages").text(`${user.name} said: ${msg.baseString}`);
+
 
   });
 
 
   // MEETING page
   //Get the current user and send it via websockets
-  var online_users = [];
   if ($('body').hasClass('meeting')) {
     $.get('/api/userdata', function(user) {
       //var user = JSON.stringify(user.user);
-      online_users.push(user.user);
-      socket.emit('meetingAttendance',{users: online_users});
+      // online_users.push(user.user);
+      socket.emit('meetingAttendance',{user: user.user});
     }); // api.get user data
 
     socket.on('online users', function(data) {
@@ -38,12 +57,12 @@ $(document).ready(function() {
       // compare it to online_users array
       // only push if it does not exist in the array.
 
-      online_users = _.uniqBy(online_users.concat(data), 'name');
+      // online_users = _.uniqBy(online_users.concat(data), 'name');
       // console.log("client list of online users", online_users)
       // console.log("user to check for repeated", data.user)
 
       var newHTML = [];
-      $.each(online_users, function(index, value) {
+      $.each(data, function(index, value) {
 
         newHTML.push(
           `<li>
@@ -56,6 +75,8 @@ $(document).ready(function() {
       });
 
       $(".list").html(newHTML.join(""));
+
+
 
     }); // socket
 

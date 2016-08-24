@@ -622,3 +622,80 @@ table.kws_occurrences {
   display: inline-block;
   font-size: 13px;
 }
+
+
+/*conversation box stuff*/
+
+.convbox {
+  padding: 1em;
+  margin-bottom: 2em;
+  -webkit-box-shadow: -27px 0px 68px -2px rgba(0,0,0,0.75);
+  -moz-box-shadow: -27px 0px 68px -2px rgba(0,0,0,0.75);
+  box-shadow: -10px 0px 68px -5px rgba(0,0,0,0.75);
+  background-color: #474643;
+}
+
+.feelingsboxes {
+  height: 3em;
+  width: 100%;
+  display: inline-block;
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+
+}
+
+.anger {
+  /*background-color: rgb(232,5,33);*/
+  width: 20%;
+  height: 100%;
+  text-align: center;
+  color: black;
+}
+
+.disgust {
+  /*background-color: rgb(89,38,132);*/
+  width: 20%;
+  height: 100%;
+  text-align: center;
+}
+
+.fear {
+  /*background-color: rgb(50,94,43);*/
+  width: 20%;
+  height: 100%;
+  text-align: center;
+}
+
+.joy {
+  /*background-color: rgb(255,214,41);*/
+  width: 20%;
+  height: 100%;
+  text-align: center;
+}
+
+.sadness {
+  /*background-color: rgb(8,109,178);*/
+  width: 20%;
+  height: 100%;
+  text-align: center;
+}
+
+.textbox {
+  height: 4em;
+  overflow: scroll;
+  background-color: whitesmoke;
+}
+
+.textboxuser {
+  background-color: #474643;
+  color: #fff;
+  text-align: center;
+  text-transform: capitalize;
+  padding-bottom: 5px;
+  font-size: 1.5em;
+}
+
+#hslider {
+  opacity: 0;
+}

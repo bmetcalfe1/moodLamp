@@ -25,6 +25,7 @@ var extend = require('util')._extend;
 var watson = require('watson-developer-cloud');
 var expressBrowserify = require('express-browserify');
 var mongoose = require('mongoose');
+var _ = require('lodash');
 
 // CONTROLLERS
 var userController = require('./server/controllers/user');
@@ -121,16 +122,61 @@ app.get('/lightItUp', lightController.getEmoColor);
 // SOCKET stuff
 var users_array = [];
 var concated_array;
+var allClients = [];
 io.on('connection', function(client) {
+
     console.log('a client has connected!');
     client.on('chat message', function(data){
+      console.log("chat message received by server", data);
       io.emit('chat message', data);
     });
+
     client.on('meetingAttendance', function(data) {
-      users_array = users_array.concat(data.users);
-      console.log('concated array', users_array);
-      io.emit('online users', users_array);
+      //users_array = users_array.concat(data.users);
+      // users_array = _.uniqBy(users_array.concat(data.users), 'name');
+      var socketID = client.id.substring(2,23);
+      if (data.user) {
+        var User = data.user;
+        console.log('why is user undefined', User);
+        User.socket_id = socketID;
+        users_array.push(User);
+        users_array = _.uniqBy(users_array, 'name');
+        console.log('users_array', users_array);
+        io.emit('online users', users_array);
+      }
     });
+
+      client.on('disconnect',function() {
+
+        console.log('Got disconnect!');
+        var client_ID = client.id.substring(2,23);
+
+
+        // var new_array = _.remove(users_array, function(n) {
+        //   if (typeof n.socketID != 'undefined'){
+        //     console.log('client id', client.id);
+        //     console.log('socket id', n.socketID);
+        //     return n.socketID !== client_ID;
+        //   } else {
+        //     return false;
+        //   }
+        // });
+
+        console.log('client id', client_ID);
+
+        var disconnected_array=[];
+        for (var i = 0; i < users_array.length; i++){
+          if (users_array[i].socket_id != client_ID)
+            disconnected_array.push(users_array[i]);
+          }
+        users_array = disconnected_array;
+        console.log('d/c array', users_array);
+        // var i = users_array.indexOf(client.id);
+        // users_array = users_array.splice(i, 1);
+        io.emit('online users', users_array);
+
+    });
+
 });
 
   // client.on('meetingAttendance', function(data) {
