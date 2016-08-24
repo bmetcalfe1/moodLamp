@@ -11,7 +11,18 @@ $(document).ready(function() {
     var nums = str.map(function (str){
       return parseInt(str)
     });
-    var user = msg.User.user;
+    console.log("msg", msg)
+    var user;
+    if(!msg.User) {
+      user = {
+        name:"Visitor",
+        _id: 1234567890
+      }
+    }
+    else {
+      user = msg.User.user;
+    }
+
     console.log("are we gonna make a div");
     console.log(user);
     if( $(`#${user._id}`).length<1) {
