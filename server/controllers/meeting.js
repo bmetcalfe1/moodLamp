@@ -1,5 +1,6 @@
 var Meeting = require('../models/Meeting');
-var Handlebars = require('Handlebars')
+var Handlebars = require('Handlebars');
+var _ = require('lodash');
 
 exports.create = function(req, res, next) {
   var meeting = new Meeting({
@@ -14,6 +15,7 @@ exports.create = function(req, res, next) {
 exports.getAllMeetings = function(req,res, next) {
   var user = req.user;
   Meeting.find({}, function(err, meetings) {
+      meetings = _.orderBy(meetings, ['created_at'],['desc']);
       res.render('account/meeting', {meetings: meetings});
   })
   .populate('attendees')
