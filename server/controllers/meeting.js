@@ -16,7 +16,6 @@ exports.getAllMeetings = function(req,res, next) {
   var user = req.user;
   Meeting.find({}, function(err, meetings) {
       meetings = _.orderBy(meetings, ['created_at'],['desc']);
-      console.log("meetings are pull from here", meetings)
       res.render('account/meeting', {meetings: meetings});
   })
   .populate('attendees')
