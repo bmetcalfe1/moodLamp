@@ -883,11 +883,18 @@ exports.showResult = function(msg, baseString, model) {
           $.get('/lightItUp', obj, function(response) {
             console.log('response', response);
             socket.emit('chat message', response);
+            var obj = {
+              'emotion':response.feeling.emotion,
+              'score': response.feeling.score
+            }
+
+            $.post('/lightItUp', obj, function(response){
+              console.log("sent to light");
+            });
+
           });
 
-          $.post('/lightItUp', obj, function(response){
-            console.log("sent to light");
-          });
+
 
           oldText = newText;
       });
