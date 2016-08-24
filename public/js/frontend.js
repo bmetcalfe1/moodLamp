@@ -25,6 +25,11 @@ $(document).ready(function() {
 
     console.log("are we gonna make a div");
     console.log(user);
+    var anger = Math.floor(msg.watsonResponse.anger*100);
+    var disgust = Math.floor(msg.watsonResponse.disgust*100);
+    var fear = Math.floor(msg.watsonResponse.fear*100);
+    var joy = Math.floor(msg.watsonResponse.joy*100);
+    var sadness = Math.floor(msg.watsonResponse.sadness*100);
     if( $(`#${user._id}`).length<1) {
       console.log("looks like we need a div");
       $("#messages").append(`<div id="${user._id}"></div>`);
@@ -34,11 +39,11 @@ $(document).ready(function() {
         <div class="textboxuser">${user.name}</div>
         <div class="textbox">${msg.baseString}</div>
         <div class="feelingsboxes">
-          <div class="anger" style="background-color:rgba(232,5,33,${msg.watsonResponse.anger});"><p>Anger</p></div>
-          <div class="disgust" style="background-color:rgba(89,38,132,${msg.watsonResponse.disgust});"><p>Disgust</p></div>
-          <div class="fear" style="background-color:rgba(50,94,43,${msg.watsonResponse.fear});"><p>Fear</p></div>
-          <div class="joy" style="background-color:rgba(255,214,41,${msg.watsonResponse.joy});"><p>Joy</p></div>
-          <div class="sadness" style="background-color:rgba(8,109,178,${msg.watsonResponse.sadness});"><p>Sadness</p></div>
+          <div class="anger" style="background-color:rgba(232,5,33,${msg.watsonResponse.anger});"><p>${anger}% Anger</p></div>
+          <div class="disgust" style="background-color:rgba(89,38,132,${msg.watsonResponse.disgust});"><p>${disgust}% Disgust</p></div>
+          <div class="fear" style="background-color:rgba(50,94,43,${msg.watsonResponse.fear});"><p>${fear}% Fear</p></div>
+          <div class="joy" style="background-color:rgba(255,214,41,${msg.watsonResponse.joy});"><p>${joy}% Joy</p></div>
+          <div class="sadness" style="background-color:rgba(8,109,178,${msg.watsonResponse.sadness});"><p>${sadness}% Sadness</p></div>
         </div>
         </div>
     `);
