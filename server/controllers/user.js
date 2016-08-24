@@ -362,3 +362,15 @@ exports.resetPost = function(req, res, next) {
     }
   ]);
 };
+
+
+exports.getGravatar = function(req, res) {
+  console.log('params', req.query.email);
+  if (!req.query.email) {
+    return 'https://gravatar.com/avatar/?s=200&d=retro';
+  }
+  var md5 = crypto.createHash('md5').update(req.query.email).digest('hex');
+  res.send({
+    gravatarURL: 'https://gravatar.com/avatar/' + md5 + '?s=200&d=retro'
+  })
+}

@@ -115,6 +115,9 @@ app.post('/reset', userController.resetPost);
 
 app.get('/about', userController.goToAbout);
 
+//Gravatar shift
+app.get('/gravatar', userController.getGravatar);
+
 //socket.io stuff
 app.post('/lightItUp', lightController.lightItUp);
 app.get('/lightItUp', lightController.getEmoColor);
@@ -127,6 +130,7 @@ io.on('connection', function(client) {
 
     console.log('a client has connected!');
     client.on('chat message', function(data){
+      console.log("chat message received by server", data);
       io.emit('chat message', data);
     });
 

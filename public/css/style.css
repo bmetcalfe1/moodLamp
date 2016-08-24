@@ -1,3 +1,7 @@
+h4 {
+  text-align: center;
+}
+
 .avatar {
   height: 2.5em;
   width: 2.5em;
@@ -583,6 +587,7 @@ table.kws_occurrences {
 
 #meetings .btn.btn-joinmeeting {
   display: block;
+  margin: 0px !important;
   white-space: normal;
 }
 
@@ -621,4 +626,77 @@ table.kws_occurrences {
 .memberList li .name {
   display: inline-block;
   font-size: 13px;
+}
+
+/*conversation box stuff*/
+
+.convbox {
+  padding: 1em;
+  margin-bottom: 2em;
+  background-color: #474643;
+}
+
+.feelingsboxes {
+  height: 3em;
+  width: 100%;
+  display: inline-block;
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+
+}
+
+.anger {
+  /*background-color: rgb(232,5,33);*/
+  width: 20%;
+  height: 100%;
+  text-align: center;
+  color: black;
+}
+
+.disgust {
+  /*background-color: rgb(89,38,132);*/
+  width: 20%;
+  height: 100%;
+  text-align: center;
+}
+
+.fear {
+  /*background-color: rgb(50,94,43);*/
+  width: 20%;
+  height: 100%;
+  text-align: center;
+}
+
+.joy {
+  /*background-color: rgb(255,214,41);*/
+  width: 20%;
+  height: 100%;
+  text-align: center;
+}
+
+.sadness {
+  /*background-color: rgb(8,109,178);*/
+  width: 20%;
+  height: 100%;
+  text-align: center;
+}
+
+.textbox {
+  height: 4em;
+  overflow: scroll;
+  background-color: whitesmoke;
+}
+
+.textboxuser {
+  background-color: #474643;
+  color: #fff;
+  text-align: center;
+  text-transform: capitalize;
+  padding-bottom: 5px;
+  font-size: 1.5em;
+}
+
+#hslider {
+  opacity: 0;
 }
