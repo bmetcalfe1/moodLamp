@@ -115,6 +115,9 @@ app.post('/reset', userController.resetPost);
 
 app.get('/about', userController.goToAbout);
 
+//Gravatar shift
+app.get('/gravatar', userController.getGravatar);
+
 //socket.io stuff
 app.post('/lightItUp', lightController.lightItUp);
 app.get('/lightItUp', lightController.getEmoColor);

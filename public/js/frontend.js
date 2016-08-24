@@ -45,9 +45,24 @@ $(document).ready(function() {
   //Get the current user and send it via websockets
   if ($('body').hasClass('meeting')) {
     $.get('/api/userdata', function(user) {
-      //var user = JSON.stringify(user.user);
-      // online_users.push(user.user);
-      socket.emit('meetingAttendance',{user: user.user});
+      console.log('user object', user.user);
+      var currentUSER = user.user;
+      // /gravatar?email=' + user.email, function(gravatar) {
+      //   console.log('gravatrar', gravatar);
+      // });
+
+      $.ajax({
+        url: '/gravatar',
+        type: 'get',
+        data: {email: currentUSER.email},
+        success: function(response) {
+          console.log('email?', response);
+          currentUSER.gravatarURL = response.gravatarURL;
+          socket.emit('meetingAttendance',{user: currentUSER});
+          localStorage.setItem('user', JSON.stringify(currentUSER));
+        }
+      });
+
     }); // api.get user data
 
     socket.on('online users', function(data) {
@@ -66,7 +81,7 @@ $(document).ready(function() {
 
         newHTML.push(
           `<li>
-            <img src="http://placehold.it/350x350" alt="" />
+            <img src=${value.gravatarURL} alt="" />
               <div class="name">
                 ` + value.name + `
               </div>
