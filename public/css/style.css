@@ -531,7 +531,7 @@ table.kws_occurrences {
 
 
 .memberList {
-  position: fixed;
+  position: absolute;;
   right:0;
   top: 55.3px;
   left: auto;
@@ -552,6 +552,7 @@ table.kws_occurrences {
   padding: 10px;
 }
 .memberList li {
+  margin-bottom: 5px;
   list-style-type: none;
 }
 .memberList li img {
@@ -641,4 +642,9 @@ table.kws_occurrences {
 
 .meeting-title {
   padding: 30px;
+  text-transform: capitalize;
+}
+
+.username {
+  text-transform: capitalize;
 }
