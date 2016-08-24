@@ -228,7 +228,7 @@ exports.getEmoColor = function (req, res) {
   }
   else {
     watsonResponse = response.docEmotions;
-    console.log('watson responded', watsonResponse);
+    //console.log('watson responded', watsonResponse);
 
     var result = Object.keys(watsonResponse).reduce(function (prev, curr) {
         //console.log('curr', watsonResponse[curr]);

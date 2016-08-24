@@ -127,7 +127,7 @@ io.on('connection', function(client) {
 
     console.log('a client has connected!');
     client.on('chat message', function(data){
-      console.log("chat message received by server");
+      console.log("chat message received by server", data);
       io.emit('chat message', data);
     });
 

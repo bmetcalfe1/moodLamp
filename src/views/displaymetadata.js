@@ -873,9 +873,10 @@ exports.showResult = function(msg, baseString, model) {
         console.log("same text");
       }
       else {
+        $.getJSON("../api/userdata", function(data) {
           console.log('newText', newText);
           var obj = {
-            'User': localStorage.user,
+            'User': data,
             'baseString': newText
           };
 
@@ -889,7 +890,9 @@ exports.showResult = function(msg, baseString, model) {
           });
 
           oldText = newText;
-      }
+      });
+
+    }
     }
 
   updateTextScroll();
