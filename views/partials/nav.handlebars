@@ -1,16 +1,18 @@
 <nav class="navbar navbar-default navbar-static-top rm-bottom-margin">
   <div class="container">
+
     <div class="navbar-header">
       <img src="/images/stt.svg" class="nav-icon">
       <a class="navbar-brand" href="/">ScribeLytics</a>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        {{#if user}}
-        <li>
-        {{#if user.name}}
-          <a>Username: {{user.name}}</a>
-        {{/if}}
+          {{#if user}}
+          <li>
+          {{#if user.name}}
+            <a>Username: {{user.name}}</a>
+          {{/if}}
         </li>
         <li>
           {{#if user.picture}}
@@ -28,5 +30,6 @@
           {{/if}}
       </ul>
     </div>
+
   </div>
 </nav>

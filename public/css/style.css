@@ -1,3 +1,7 @@
+h4 {
+  text-align: center;
+}
+
 .avatar {
   height: 2.5em;
   width: 2.5em;
@@ -583,6 +587,7 @@ table.kws_occurrences {
 
 #meetings .btn.btn-joinmeeting {
   display: block;
+  margin: 0px !important;
   white-space: normal;
 }
 
@@ -622,7 +627,6 @@ table.kws_occurrences {
   display: inline-block;
   font-size: 13px;
 }
-
 
 /*conversation box stuff*/
 
