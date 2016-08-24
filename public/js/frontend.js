@@ -19,25 +19,24 @@ $(document).ready(function() {
       $("#messages").append(`<div id="${user._id}"></div>`);
     }
     $(`#${user._id}`).replaceWith(`
-      <div id="${user._id}">
+      <div class="convbox" id="${user._id}">
         <div class="textboxuser">${user.name}</div>
         <div class="textbox">${msg.baseString}</div>
         <div class="feelingsboxes">
-          <div class="anger" style="opacity:${msg.watsonResponse.anger};"></div>
-          <div class="disgust" style="opacity:${msg.watsonResponse.disgust};"></div>
-          <div class="fear" style="opacity:${msg.watsonResponse.fear};"></div>
-          <div class="joy" style="opacity:${msg.watsonResponse.joy};"></div>
-          <div class="sadness" style="opacity:${msg.watsonResponse.sadness};"></div>
+          <div class="anger" style="background-color:rgba(232,5,33,${msg.watsonResponse.anger});"><p>Anger</p></div>
+          <div class="disgust" style="background-color:rgba(89,38,132,${msg.watsonResponse.disgust});"><p>Disgust</p></div>
+          <div class="fear" style="background-color:rgba(50,94,43,${msg.watsonResponse.fear});"><p>Fear</p></div>
+          <div class="joy" style="background-color:rgba(255,214,41,${msg.watsonResponse.joy});"><p>Joy</p></div>
+          <div class="sadness" style="background-color:rgba(8,109,178,${msg.watsonResponse.sadness});"><p>Sadness</p></div>
         </div>
         </div>
     `);
+    $(`#${user._id}`).css({
+      "transition": "2s"
+    });
 
     // $("#messages").text(`${user.name} said: ${msg.baseString}`);
-    // $("#messages").css({
-    //   "background-color": `rgb(${nums[0]},${nums[1]},${nums[2]})`,
-    //   "opacity":`${msg.feeling.score}`,
-    //   "transition": "2s"
-    // });
+
 
   });
 
