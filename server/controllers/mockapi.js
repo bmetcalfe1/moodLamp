@@ -221,7 +221,7 @@ exports.getEmoColor = function (req, res) {
 
       }
   }
-
+  var watsonResponse;
   alchemy_language.emotion(parameters, function (err, response) {
   if (err) {
     console.log('error:', err);
@@ -249,6 +249,7 @@ exports.getEmoColor = function (req, res) {
     var color = displayColor(resultObj);
     console.log("color", color);
     payload.feeling = color;
+    payload.watsonResponse = watsonResponse
     console.log("payload ready", payload);
     res.send(payload);
 

@@ -891,54 +891,7 @@ exports.showResult = function(msg, baseString, model) {
           oldText = newText;
       }
     }
-    //
-    // else {
-    //   if (japanese) {
-    //     text = text.replace(/ /g,''); // remove whitespaces
-    //   } else {
-    //       text = text.charAt(0).toUpperCase() + text.substring(1);
-    //   }
-    //   $('#resultsText').val(baseString + text);
-    //   console.log("basestring in else is", baseString);
-    //   var newText = baseString;
-    //   //console.log('basestring', baseString + text);
-    //   var oldText = '';
-    //   if(oldText === newText) {
-    //     console.log("same text");
-    //   }
-    //   else {
-    //     $.getJSON("../api/userdata", function(data) {
-    //       console.log('newText', newText);
-    //       var obj = {
-    //         'User': data,
-    //         'baseString': newText
-    //       };
-    //
-    //       $.get('/lightItUp', obj, function(response) {
-    //         console.log('response', response);
-    //         socket.emit('chat message', response);
-    //       });
-    //
-    //       $.post('/lightItUp', obj, function(response){
-    //         console.log("sent to light");
-    //       });
-    //
-    //       oldText = newText;
-    //
-    //     });
-    //   }
-    //
 
-
-
-      // socket.on('chat message', function(msg){
-      //   console.log("client socket heard: ",msg)
-      //   $('#messages').val($('<li>').text(msg));
-      // });
-
-  //
-  //
-  //   }
   updateTextScroll();
   return baseString;
   }

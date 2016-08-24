@@ -11,12 +11,33 @@ $(document).ready(function() {
     var nums = str.map(function (str){
       return parseInt(str)
     });
+    var user = JSON.parse(msg.User);
+    console.log("are we gonna make a div");
+    console.log(user._id);
+    if( $(`#${user._id}`).length<1) {
+      console.log("looks like we need a div");
+      $("#messages").append(`<div id="${user._id}"></div>`);
+    }
+    $(`#${user._id}`).replaceWith(`
+      <div id="${user._id}">
+        <div class="textboxuser">${user.name}</div>
+        <div class="textbox">${msg.baseString}</div>
+        <div class="feelingsboxes">
+          <div class="anger" style="opacity:${msg.watsonResponse.anger};"></div>
+          <div class="disgust" style="opacity:${msg.watsonResponse.disgust};"></div>
+          <div class="fear" style="opacity:${msg.watsonResponse.fear};"></div>
+          <div class="joy" style="opacity:${msg.watsonResponse.joy};"></div>
+          <div class="sadness" style="opacity:${msg.watsonResponse.sadness};"></div>
+        </div>
+        </div>
+    `);
 
-    $("#messages").text(`${msg.User.name} said: ${msg.baseString}`);
-    $("#messages").css({
-      "background-color": `rgb(${nums[0]},${nums[1]},${nums[2]})`,
-      "transition": "2s"
-    });
+    // $("#messages").text(`${user.name} said: ${msg.baseString}`);
+    // $("#messages").css({
+    //   "background-color": `rgb(${nums[0]},${nums[1]},${nums[2]})`,
+    //   "opacity":`${msg.feeling.score}`,
+    //   "transition": "2s"
+    // });
 
   });
 
