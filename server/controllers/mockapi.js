@@ -162,7 +162,7 @@ exports.lightItUp = function (req, res) {
 
             case 'anger':
               var colorintesity = '';
-              colorintesity += ("r=" + (232*obj.score) + ",g=" + (5*obj.score) + ",b=" + (33*obj.score))
+              colorintesity += ("r=" + (255*obj.score) + ",g=" + (5*obj.score) + ",b=" + (33*obj.score))
               // 'r': 232,
               // 'g': 5,
               // 'b'= 33
@@ -176,7 +176,7 @@ exports.lightItUp = function (req, res) {
             // 'g': 38,
             // 'b': 132
             var colorintesity = '';
-            colorintesity += ("r=" + (89*obj.score) + ",g=" + (38*obj.score) + ",b=" + (132*obj.score))
+            colorintesity += ("r=" + (127*obj.score) + ",g=" + (102*obj.score) + ",b=" + (255*obj.score))
             console.log("lampcolor", colorintesity)
             return colorintesity;
                 break;
@@ -186,7 +186,7 @@ exports.lightItUp = function (req, res) {
             // 'g': 94,
             // 'b': 43
             var colorintesity = '';
-            colorintesity += ("r=" + (50*obj.score) + ",g=" + (94*obj.score) + ",b=" + (43*obj.score))
+            colorintesity += ("r=" + (0*obj.score) + ",g=" + (153*obj.score) + ",b=" + (0*obj.score))
             console.log("lampcolor", colorintesity)
             return colorintesity;
                 break;
