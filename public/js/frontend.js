@@ -99,18 +99,18 @@ $(document).ready(function() {
         online_users_server[i] = data[i].name;
       }
       console.log('online user server', online_users_server);
- 
+
           if(online_users_server.length > online_users_client.length){
             var diff = online_users_server.diff(online_users_client);
               for (var i=0;i < diff.length;i++){
-                $.jGrowl(`${diff[i]} is online`);
+                $.jGrowl(`${diff[i]} has joined.`);
                 online_users_client = online_users_server;
               }
           }
           else if(online_users_server.length < online_users_client.length){
             var diff = online_users_client.diff(online_users_server);
             for (var i=0;i < diff.length;i++){
-              $.jGrowl(`${diff[i]} is offline`);
+              $.jGrowl(`${diff[i]} has left.`);
               online_users_client = online_users_server;
             }
           }

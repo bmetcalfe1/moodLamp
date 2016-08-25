@@ -235,7 +235,7 @@ exports.lightItUp = function (req, res) {
         }
         else {
           console.log('body from particle', body);
-          res.status(200);
+          res.sendStatus(200);
         }
       });
 
