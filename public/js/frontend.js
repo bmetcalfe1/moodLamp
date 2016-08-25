@@ -85,7 +85,7 @@ $(document).ready(function() {
       });
 
     }); // api.get user data
-  
+
       var online_users_client = [];
 
     socket.on('online users', function(data) {
@@ -99,7 +99,7 @@ $(document).ready(function() {
         online_users_server[i] = data[i].name;
       }
       console.log('online user server', online_users_server);
-
+ 
           if(online_users_server.length > online_users_client.length){
             var diff = online_users_server.diff(online_users_client);
               for (var i=0;i < diff.length;i++){
