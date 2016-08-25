@@ -85,7 +85,7 @@ $(document).ready(function() {
       });
 
     }); // api.get user data
-  
+
       var online_users_client = [];
 
     socket.on('online users', function(data) {
@@ -108,7 +108,11 @@ $(document).ready(function() {
               }
           }
           else if(online_users_server.length < online_users_client.length){
-            online_users_client = online_users_server;
+            var diff = online_users_client.diff(online_users_server);
+            for (var i=0;i < diff.length;i++){
+              $.jGrowl(`${diff[i]} is offline`);
+              online_users_client = online_users_server;
+            }
           }
 
 
