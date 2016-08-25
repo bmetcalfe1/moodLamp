@@ -2,6 +2,11 @@ $(document).ready(function() {
   var socket = io();
   //add class to the body depending on the page.
   $('body').addClass(window.location.pathname.split('/')[1]);
+  $.jGrowl.defaults.position = 'bottom-left';
+
+  Array.prototype.diff = function(a) {
+      return this.filter(function(i) {return a.indexOf(i) < 0;});
+  };
 
   socket.on('chat message', function(msg) {
     console.log("msg", msg);
@@ -80,17 +85,32 @@ $(document).ready(function() {
       });
 
     }); // api.get user data
+  
+      var online_users_client = [];
 
     socket.on('online users', function(data) {
-      console.log('online user here', data);
+      console.log("server data", data)
+      console.log('online user client', online_users_client);
 
-      // iterate over data
-      // compare it to online_users array
-      // only push if it does not exist in the array.
 
-      // online_users = _.uniqBy(online_users.concat(data), 'name');
-      // console.log("client list of online users", online_users)
-      // console.log("user to check for repeated", data.user)
+      //console.log("differences", data.diff(online_users).length)
+      var online_users_server=[];
+      for (var i=0;i < data.length;i++){
+        online_users_server[i] = data[i].name;
+      }
+      console.log('online user server', online_users_server);
+
+          if(online_users_server.length > online_users_client.length){
+            var diff = online_users_server.diff(online_users_client);
+              for (var i=0;i < diff.length;i++){
+                $.jGrowl(`${diff[i]} is online`);
+                online_users_client = online_users_server;
+              }
+          }
+          else if(online_users_server.length < online_users_client.length){
+            online_users_client = online_users_server;
+          }
+
 
       var newHTML = [];
       $.each(data, function(index, value) {
@@ -106,9 +126,6 @@ $(document).ready(function() {
       });
 
       $(".list").html(newHTML.join(""));
-
-
-
     }); // socket
 
   }; // if in meeting page
