@@ -7,4 +7,4 @@
   This is a tool that can be used to augment a real time in-person conversation or meeting. It does this by analysing the content of what's spoken into each user's computer and presents a realtime emotional analsis of the feelings contained.
 
 
-![Alt text](/scribeLytics.png?raw=true "Landing Page")
+![Alt text](scribeLytics.png?raw=true "Landing Page")
