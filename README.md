@@ -8,5 +8,11 @@
 
 
 ![Alt text](https://github.com/bmetcalfe1/moodLamp/blob/master/ScribeLytics.png?raw=true "Landing Page")
-![Alt text](https://github.com/bmetcalfe1/moodLamp/blob/master/ScribeLyticsconversation.png?raw=true "Landing Page")
+
+## Joing Meetings
+
 ![Alt text](https://github.com/bmetcalfe1/moodLamp/blob/master/ScribeLyticsMeetingspage.png?raw=true "Landing Page")
+
+##Example Meeting
+
+![Alt text](https://github.com/bmetcalfe1/moodLamp/blob/master/ScribeLyticsconversation.png?raw=true "Landing Page")
